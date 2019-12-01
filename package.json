@@ -1,0 +1,46 @@
+{
+  "name": "taquillas",
+  "version": "0.0.1",
+  "description": "Locker renting and management platform.",
+  "main": "src/server/server.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "yarn run build && node src/server/server.js",
+    "server": "nodemon --ignore dist/ --ignore src/client",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "dev": "concurrently --kill-others --raw --default-input-target 1 'yarn run client' 'yarn run server'",
+    "test": "eslint . --ext .js,.jsx --ignore-pattern dist/**"
+  },
+  "repository": "https://github.com/DAT-ETSIT/taquillas",
+  "author": "Delegación de Alumnos de Telecomunicación",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.0.0",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "file-loader": "^5.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^2.0.1",
+    "style-loader": "^1.0.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "promise-mysql": "^3.3.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router-dom": "^5.1.2"
+  }
+}

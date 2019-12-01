@@ -1,0 +1,3 @@
+Add the fonts here in as many formats as possible (TTF, EOT, SVG, WOFF...).
+
+You will be able to import them in the index.jsx.
