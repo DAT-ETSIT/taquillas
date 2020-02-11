@@ -90,3 +90,5 @@ Session.vim
 .undodir/
 *.code-workspace
 .vscode/
+
+src/server/config/config.json
