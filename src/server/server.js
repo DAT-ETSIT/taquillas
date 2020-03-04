@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const router = require('./router');
-const dashboardRouter = require('./routers/dashboard');
+const adminRouter = require('./routers/admin');
 const appRouter = require('./routers/app');
 const config = require('./config.json');
 const { globalErrorHandler } = require('./errors');
@@ -20,7 +20,7 @@ app.use(express.static('dist'));
 if (config.server.usingProxy) app.set('trust proxy', 1);
 // Main API router.
 app.use('/api/v1/app', appRouter);
-app.use('/api/v1/dashboard', dashboardRouter);
+app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1', router);
 // Any other route.
 app.use('*', (req, res) => res.sendFile(path.join(__dirname, '../../dist/index.html')));
