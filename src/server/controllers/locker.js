@@ -97,3 +97,11 @@ exports.update = (req, res, next) => {
 		})
 		.catch((error) => next(error));
 };
+
+exports.destroy = (req, res, next) => {
+	req.locker.destroy()
+		.then(() => {
+			req.json({ status: 'OK' });
+		})
+		.catch((error) => next(error));
+};
