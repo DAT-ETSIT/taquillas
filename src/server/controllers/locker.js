@@ -63,9 +63,6 @@ exports.create = (req, res, next) => {
 		.then(() => {
 			res.json({ status: 'OK' });
 		})
-		.catch(Sequelize.ValidationError, (error) => {
-			res.status(400).json({ status: 'ERROR', errors: error.errors });
-		})
 		.catch((error) => {
 			next(error);
 		});
@@ -91,9 +88,6 @@ exports.update = (req, res, next) => {
 	locker.save({ fields })
 		.then(() => {
 			res.json({ status: 'OK' });
-		})
-		.catch(Sequelize.ValidationError, (error) => {
-			res.status(400).json({ status: 'ERROR', errors: error.errors });
 		})
 		.catch((error) => next(error));
 };
