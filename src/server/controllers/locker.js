@@ -70,3 +70,30 @@ exports.create = (req, res, next) => {
 			next(error);
 		});
 };
+
+exports.update = (req, res, next) => {
+	const { locker, body } = req;
+	const fields = [];
+	const allowedFields = ['lockerNumber', 'lockerStateId', 'locaitonId'];
+
+	// Check if there is at least one field to update
+	allowedFields.forEach((field) => {
+		if (Object.prototype.hasOwnProperty.call(body, field)) {
+			locker[field] = body[field];
+			fields.push(field);
+		}
+	});
+	// Check if there is at least one field to update
+	if (!fields) {
+		res.status(400).json({ status: 'ERROR', errors: ['No fields to update'] });
+	}
+
+	locker.save({ fields })
+		.then(() => {
+			res.json({ status: 'OK' });
+		})
+		.catch(Sequelize.ValidationError, (error) => {
+			res.status(400).json({ status: 'ERROR', errors: error.errors });
+		})
+		.catch((error) => next(error));
+};
