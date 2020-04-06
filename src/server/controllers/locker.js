@@ -50,3 +50,23 @@ exports.show = (req, res) => {
 	const { locker } = req;
 	res.json(locker);
 };
+
+exports.create = (req, res, next) => {
+	const locker = models.Locker.build(
+		{
+			lockerNumber: req.body.lockerNumber,
+			lockerStateId: req.body.lockerStateId,
+			locationId: req.body.locationId,
+		},
+	);
+	locker.save()
+		.then(() => {
+			res.json({ status: 'OK' });
+		})
+		.catch(Sequelize.ValidationError, (error) => {
+			res.status(400).json({ status: 'ERROR', errors: error.errors });
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
