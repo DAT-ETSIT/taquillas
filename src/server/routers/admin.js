@@ -5,6 +5,7 @@ const locationController = require('../controllers/location');
 const userController = require('../controllers/user');
 const paymentController = require('../controllers/payment');
 const paymentMethodController = require('../controllers/paymentMethod');
+const rentalController = require('../controllers/rental');
 
 const router = express.Router();
 
@@ -15,6 +16,7 @@ router.param('locationId', locationController.load);
 router.param('userId', userController.load);
 router.param('paymentId', paymentController.load);
 router.param('paymentMethodId', paymentMethodController.load);
+router.param('rentalId', rentalController.load);
 
 // Routes for the model locker
 router.get('/lockers', lockerController.index);
@@ -57,5 +59,12 @@ router.get('/paymentMethod/:paymentMethodId(\\d+)', paymentMethodController.show
 router.post('/paymentMethod', paymentMethodController.create);
 router.put('/paymentMethod/:paymentMethodId(\\d+)', paymentMethodController.update);
 router.delete('/paymentMethod/:paymentMethodId(\\d+)', paymentMethodController.destroy);
+
+// Routes for the model rental
+router.get('/rentals', rentalController.index);
+router.get('/rental/:rentalId(\\d+)', rentalController.show);
+router.post('/rental', rentalController.create);
+router.put('/rental/:rentalId(\\d+)', rentalController.update);
+router.delete('/rental/:rentalId(\\d+)', rentalController.destroy);
 
 module.exports = router;
