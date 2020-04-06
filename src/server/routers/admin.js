@@ -2,6 +2,7 @@ const express = require('express');
 const lockerController = require('../controllers/locker');
 const lockerStateController = require('../controllers/lockerState');
 const locationController = require('../controllers/location');
+const userController = require('../controllers/user');
 
 const router = express.Router();
 
@@ -9,6 +10,7 @@ const router = express.Router();
 router.param('lockerId', lockerController.load);
 router.param('lockerStateId', lockerStateController.load);
 router.param('locationId', locationController.load);
+router.param('userId', userController.load);
 
 // Routes for the model locker
 router.get('/lockers', lockerController.index);
@@ -30,5 +32,12 @@ router.get('/location/:locationId(\\d+)', locationController.show);
 router.post('/location', locationController.create);
 router.put('/location/:locationId(\\d+)', locationController.update);
 router.delete('/location/:locationId(\\d+)', locationController.destroy);
+
+// Routes for the model user
+router.get('/users', userController.index);
+router.get('/user/:userId(\\d+)', userController.show);
+router.post('/user', userController.create);
+router.put('/user/:userId(\\d+)', userController.update);
+router.delete('/user/:userId(\\d+)', userController.destroy);
 
 module.exports = router;
