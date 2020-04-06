@@ -45,3 +45,8 @@ exports.index = (req, res, next) => {
 		})
 		.catch((error) => next(error));
 };
+
+exports.show = (req, res) => {
+	const { locker } = req;
+	res.json(locker);
+};
