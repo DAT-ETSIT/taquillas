@@ -26,31 +26,24 @@ $ cd taquillas
 $ yarn install
 ```
 
-3. Create the configuration file for the backend, `src/server/config.json`.
-   It must have the following structure:
-
-```json
-{
-    "database": {
-        "host": "<your.mysql.database.host>",
-        "host": "<the database's port, 3306 by default>",
-        "user": "<the database's user>",
-        "password": "<the password for that user>",
-        "dbName": "<the name of the database to use>"
-    },
-    "server": {
-        "url": "<https://topprofes.public.url>",
-        "port": "<port for the server to listen>",
-        "usingProxy": true,
-        "sessionSecret": "<some secure random secret>"
-    }
-}
+3. Create the configuration files for the backend: `src/server/config/server.json` and `src/server/config/database.json`.
+   You can copy the examples provided in the `config` folder:
+```sh
+$ cp src/server/config/serverExample.json src/server/config/server.json
+$ cp src/server/config/databaseExample.json src/server/config/database.json
 ```
-  Set `server.usingProxy` to `true` if you are serving Top Profe behind a
+  Set `usingProxy` to `true` if you are serving Taquillas behind a
   reverse proxy. In affirmative case, it is required to set the
   "X-Forwarded-Proto" header accordingly (it should always be HTTPS).
 
-4. Run it!
+4. Run migrations and seeders:
+
+```sh
+$ sequelize db:migrate
+$ sequelize db:seed:all
+```
+
+5. Run it!
 
 ```sh
 $ yarn start
