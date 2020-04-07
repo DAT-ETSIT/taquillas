@@ -79,9 +79,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# Server secrets & config file
-src/server/config.json
-
 # Compiled files
 dist/
 
@@ -91,4 +88,6 @@ Session.vim
 *.code-workspace
 .vscode/
 
-src/server/config/config.json
+# Server secrets & config file
+src/server/config/database.json
+src/server/config/server.json
