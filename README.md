@@ -1,5 +1,6 @@
 taquillas
 =========
+![build](https://github.com/DAT-ETSIT/taquillas/workflows/build/badge.svg)
 
 Locker renting and management platform.
 
