@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 	Payment.associate = function associate(models) {
 		models.Payment.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 		models.Payment.belongsTo(models.Rental, { foreignKey: 'rentalId' });
-		models.Payment.belongsTo(models.PaymentMethodId, { foreignKey: 'paymentMethodId' });
+		models.Payment.belongsTo(models.PaymentMethod, { foreignKey: 'paymentMethodId' });
 		models.Payment.hasMany(models.Event, { foreignKey: 'paymentId' });
 		// More associations can be defined here
 	};
