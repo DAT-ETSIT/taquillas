@@ -1,0 +1,20 @@
+{
+    "development": {
+        "url": "localhost",
+        "port": "3000",
+        "usingProxy": false,
+        "sessionSecret": "<some secure random secret>"
+    },
+    "test": {
+        "url": "localhost",
+        "port": "3000",
+        "usingProxy": false,
+        "sessionSecret": "<some secure random secret>"
+    },
+    "production": {
+        "url": "localhost",
+        "port": "3000",
+        "usingProxy": false,
+        "sessionSecret": "<some secure random secret>"
+    }
+}
