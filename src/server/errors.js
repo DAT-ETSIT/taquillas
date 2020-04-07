@@ -1,4 +1,5 @@
-const config = require('./config.json');
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config/server.json')[env];
 
 class BadRequestError extends Error {}
 module.exports.BadRequestError = BadRequestError;
@@ -46,7 +47,7 @@ module.exports.globalErrorHandler = (err, req, res, next) => {
 			code: 'unauthorized',
 			message: 'Login required',
 			ssoUrl: `${config.cas.ssoUrl}/login`,
-			serviceBase: config.server.url,
+			serviceBase: config.url,
 		});
 	}
 
