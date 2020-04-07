@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: lint
 
 on:
   push:
@@ -39,7 +39,6 @@ jobs:
     - name: Copy database config file
       run: cp ${{ github.workspace }}/src/server/config/databaseExample.json ${{ github.workspace }}/src/server/config/database.json
     - run: yarn install --frozen-lockfile
-    - run: yarn build
     - run: yarn test
       env:
         CI: true
