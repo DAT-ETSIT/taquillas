@@ -3,7 +3,7 @@ module.exports = {
 	up: (queryInterface, Sequelize) => queryInterface.createTable('LockerStates', {
 		id: {
 			allowNull: false,
-			autoIncrement: true,
+			autoIncrement: false,
 			primaryKey: true,
 			type: Sequelize.INTEGER,
 		},
