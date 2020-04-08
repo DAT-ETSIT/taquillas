@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
-import { fetchGet } from '../util';
+import { connect } from 'react-redux';
 
-export default class TestView extends Component {
-	constructor() {
-		super();
-		this.state = {
-			pong: false,
-		};
+import { fetchGet } from '../util';
+import { receivePong } from '../redux/actions/pong';
+
+const sendPing = function sendPing(props) {
+	fetchGet('/api/v1/ping')
+		.then((r) => r.json())
+		.then(() => props.dispatch(receivePong()));
+};
+
+class TestView extends Component {
+	componentDidMount() {
+		sendPing(this.props);
 	}
 
-	componentDidMount() {
-		fetchGet('/api/v1/ping')
-			.then((r) => r.json())
-			.then((res) => {
-				this.setState({
-					pong: res.pong,
-				});
-			});
+	componentDidUpdate() {
+		sendPing(this.props);
 	}
 
 	render() {
-		const { pong } = this.state;
-
+		const { pong } = this.props;
 		return (
 			<div>
 				<h1>Hello, world!</h1>
@@ -30,3 +29,11 @@ export default class TestView extends Component {
 		);
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		...state,
+	};
+}
+
+export default connect(mapStateToProps)(TestView);
