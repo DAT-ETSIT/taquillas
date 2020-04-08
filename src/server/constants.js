@@ -1,4 +1,4 @@
-export const RentalStates = {
+exports.RentalStates = {
 	REQUESTED: 1,
 	RESERVED: 2,
 	RENTED: 3,
@@ -7,7 +7,7 @@ export const RentalStates = {
 	RETURNED: 6,
 };
 
-export const LockerStates = {
+exports.LockerStates = {
 	UNAVAILABLE: 1,
 	AVAILABLE: 2,
 	RESERVED: 3,
