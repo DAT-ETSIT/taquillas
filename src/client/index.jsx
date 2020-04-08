@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-
+import ReduxProvider from './redux/ReduxProvider';
 import './public/style.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<ReduxProvider />, document.getElementById('root'));
