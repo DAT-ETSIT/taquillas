@@ -43,7 +43,9 @@
     "promise-mysql": "^3.3.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
     "sequelize": "^5.21.4"
   }
 }
