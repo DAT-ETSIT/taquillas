@@ -55,3 +55,13 @@ exports.destroy = (req, res, next) => {
 		})
 		.catch((error) => next(error));
 };
+
+exports.create = (req, res, next) => {
+	req.entity.save()
+		.then((entity) => {
+			res.json(entity);
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
