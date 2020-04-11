@@ -1,4 +1,5 @@
 const env = process.env.NODE_ENV || 'development';
+const { ValidationError } = require('sequelize');
 const config = require('./config/server.json')[env];
 
 class BadRequestError extends Error {}
@@ -48,6 +49,13 @@ module.exports.globalErrorHandler = (err, req, res, next) => {
 			message: 'Login required',
 			ssoUrl: `${config.cas.ssoUrl}/login`,
 			serviceBase: config.url,
+		});
+	}
+
+	if (err instanceof ValidationError) {
+		return res.status(400).json({
+			code: 'bad_request',
+			message: err.errors,
 		});
 	}
 
