@@ -47,3 +47,11 @@ exports.update = (req, res, next) => {
 		})
 		.catch((error) => next(error));
 };
+
+exports.destroy = (req, res, next) => {
+	req.entity.destroy()
+		.then(() => {
+			res.json({ status: 'OK' });
+		})
+		.catch((error) => next(error));
+};
