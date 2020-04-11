@@ -12,3 +12,16 @@ exports.load = (model, options) => function load(req, res, next, entityId) {
 		})
 		.catch((error) => next(error));
 };
+
+exports.index = (req, res, next) => {
+	req.model.findAll(req.options)
+		.then((entity) => {
+			res.json(entity);
+		})
+		.catch((error) => next(error));
+};
+
+exports.show = (req, res) => {
+	const { entity } = req;
+	res.json(entity);
+};
