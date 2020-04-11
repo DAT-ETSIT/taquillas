@@ -1,4 +1,4 @@
-const { NotFoundError } = require('../errors');
+const { NotFoundError, BadRequestError } = require('../errors');
 
 exports.load = (model, options) => function load(req, res, next, entityId) {
 	model.findByPk(entityId, options)
@@ -24,4 +24,26 @@ exports.index = (req, res, next) => {
 exports.show = (req, res) => {
 	const { entity } = req;
 	res.json(entity);
+};
+
+exports.update = (req, res, next) => {
+	const { entity, body } = req;
+	const fields = [];
+
+	req.allowedFields.forEach((field) => {
+		if (Object.prototype.hasOwnProperty.call(body, field)) {
+			entity[field] = body[field];
+			fields.push(field);
+		}
+	});
+	// Check if there is at least one field to update
+	if (!fields) {
+		throw new BadRequestError();
+	}
+
+	entity.save({ fields })
+		.then((newEntity) => {
+			res.json(newEntity);
+		})
+		.catch((error) => next(error));
 };
