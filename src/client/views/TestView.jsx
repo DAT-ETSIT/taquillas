@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { fetchGet } from '../util';
-import { receivePong } from '../redux/actions/pong';
+import { useSelector } from 'react-redux';
+import doPing from '../utils/api/pong';
 
 
 const TestView = () => {
 	const pong = useSelector((state) => state.pong);
-	const dispatch = useDispatch();
 	useEffect(() => {
-		fetchGet('/api/v1/ping')
-			.then((r) => r.json())
-			.then(() => dispatch(receivePong()));
-	});
+		doPing();
+	}, []);
 	return (
 		<div>
 			<h1>Hello, world!</h1>
