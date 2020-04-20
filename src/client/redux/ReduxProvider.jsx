@@ -1,8 +1,7 @@
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import GlobalState from './reducers';
+import store from './store';
 import TestView from '../views/TestView';
 import ErrorView from '../views/ErrorView';
 
@@ -11,24 +10,7 @@ import ErrorView from '../views/ErrorView';
 export default class ReduxProvider extends React.Component {
 	constructor(props) {
 		super(props);
-		this.initialState = {
-			pong: false,
-			loggedUser: {},
-			lockers: [],
-			users: [],
-			rentals: [],
-			locations: [],
-			payments: [],
-			payment: [],
-			lockerStates: [],
-			rentalStates: [],
-			paymentMethods: [],
-		};
-		this.store = this.configureStore();
-	}
-
-	configureStore() {
-		return createStore(GlobalState, this.initialState);
+		this.store = store;
 	}
 
 	render() {
