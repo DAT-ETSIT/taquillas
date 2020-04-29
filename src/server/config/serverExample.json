@@ -3,18 +3,27 @@
         "url": "<https://taquillas.public.url>",
         "port": "<port for the server to listen>",
         "usingProxy": false,
-        "sessionSecret": "<some secure random secret>"
+        "sessionSecret": "<some secure random secret>",
+        "cas": {
+            "ssoUrl": "<https://cas.sso.url/path>"
+        }
     },
     "test": {
         "url": "<https://taquillas.public.url>",
         "port": "<port for the server to listen>",
         "usingProxy": false,
-        "sessionSecret": "<some secure random secret>"
+        "sessionSecret": "<some secure random secret>",
+        "cas": {
+            "ssoUrl": "<https://cas.sso.url/path>"
+        }
     },
     "production": {
         "url": "<https://taquillas.public.url>",
         "port": "<port for the server to listen>",
         "usingProxy": false,
-        "sessionSecret": "<some secure random secret>"
+        "sessionSecret": "<some secure random secret>",
+        "cas": {
+            "ssoUrl": "<https://cas.sso.url/path>"
+        }
     }
 }
