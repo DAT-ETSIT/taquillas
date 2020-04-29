@@ -1,8 +1,12 @@
 const express = require('express');
 const defaultController = require('../controllers/defaultController');
 const location = require('../controllers/admin/location');
+const middlewares = require('../middlewares');
 
 const router = express.Router();
+
+// All endpoints require authentication.
+router.use(middlewares.checkLogin);
 
 // Autoload for routes using :param
 router.param(
