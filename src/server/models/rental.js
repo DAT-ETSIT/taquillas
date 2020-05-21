@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 		models.Rental.belongsTo(models.User, { foreignKey: 'userId' });
 		models.Rental.belongsTo(models.Locker, { foreignKey: 'lockerId' });
 		models.Rental.belongsTo(models.RentalState, { foreignKey: 'rentalStateId' });
-		models.Locker.hasMany(models.Payment, { foreignKey: 'rentalId' });
-		models.Locker.hasMany(models.Event, { foreignKey: 'rentalId' });
+		models.Rental.hasMany(models.Payment, { foreignKey: 'rentalId' });
+		models.Rental.hasMany(models.Event, { foreignKey: 'rentalId' });
 		// More associations can be defined here
 	};
 	return Rental;
