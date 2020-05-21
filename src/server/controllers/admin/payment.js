@@ -12,3 +12,18 @@ exports.loadOptions = {
 	],
 };
 
+exports.index = (req, res, next) => {
+	req.options = {
+		include: [
+			models.PaymentMethod,
+			models.User,
+			{
+				model: models.Rental,
+				include: [models.Locker],
+			},
+		],
+	};
+	req.model = models.Payment;
+	next();
+};
+
