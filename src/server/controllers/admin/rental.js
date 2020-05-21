@@ -16,3 +16,18 @@ exports.loadOptions = {
 	],
 };
 
+exports.index = (req, res, next) => {
+	req.options = {
+		include: [
+			models.RentalState,
+			models.User,
+			{
+				model: models.Locker,
+				include: [models.Location],
+			},
+		],
+	};
+	req.model = models.Rental;
+	next();
+};
+
