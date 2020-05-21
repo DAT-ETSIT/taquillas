@@ -31,3 +31,8 @@ exports.index = (req, res, next) => {
 	next();
 };
 
+exports.update = (req, res, next) => {
+	req.allowedFields = ['expirationDate', 'deposit', 'userId', 'lockerId', 'rentalStateId'];
+	next();
+};
+
