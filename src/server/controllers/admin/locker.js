@@ -36,3 +36,13 @@ exports.update = (req, res, next) => {
 	next();
 };
 
+exports.create = (req, res, next) => {
+	req.entity = models.Locker.build(
+		{
+			lockerNumber: req.body.lockerNumber,
+			lockerStateId: req.body.lockerStateId,
+			locationId: req.body.locationId,
+		},
+	);
+	next();
+};
