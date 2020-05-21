@@ -1,6 +1,7 @@
 const express = require('express');
 const defaultController = require('../controllers/defaultController');
 const location = require('../controllers/admin/location');
+const locker = require('../controllers/admin/locker');
 
 const router = express.Router();
 
@@ -30,6 +31,33 @@ router.put(
 router.delete(
 	'/location/:locationId(\\d+)',
 	location.setDefaults, defaultController.destroy,
+);
+
+// Autoload for routes using :param
+router.param(
+	'lockerId',
+	defaultController.load(locker.model, locker.loadOptions),
+);
+// Routes for the model locker
+router.get(
+	'/lockers',
+	locker.index, defaultController.index,
+);
+router.get(
+	'/locker/:lockerId(\\d+)',
+	defaultController.show,
+);
+router.post(
+	'/locker',
+	locker.create, defaultController.create,
+);
+router.put(
+	'/locker/:lockerId(\\d+)',
+	locker.update, defaultController.update,
+);
+router.delete(
+	'/locker/:lockerId(\\d+)',
+	defaultController.destroy,
 );
 
 module.exports = router;
