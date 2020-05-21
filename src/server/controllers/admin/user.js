@@ -36,3 +36,15 @@ exports.update = (req, res, next) => {
 	next();
 };
 
+exports.create = (req, res, next) => {
+	req.entity = models.User.build(
+		{
+			name: req.body.name,
+			phone: req.body.phone || null,
+			dni: req.body.dni || null,
+			email: req.body.email,
+			isAdmin: false,
+		},
+	);
+	next();
+};
