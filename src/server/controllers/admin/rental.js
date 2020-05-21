@@ -1,4 +1,5 @@
 const models = require('../../models');
+const { RentalStates } = require('../../constants');
 
 exports.model = models.Rental;
 exports.loadOptions = {
@@ -36,3 +37,15 @@ exports.update = (req, res, next) => {
 	next();
 };
 
+exports.create = (req, res, next) => {
+	req.entity = models.Rental.build(
+		{
+			expirationDate: req.body.expirationDate || Date.now(),
+			deposit: req.body.deposit,
+			userId: req.body.userId,
+			lockerId: req.body.lockerId,
+			rentalStateId: req.body.rentalStateId || RentalStates.REQUESTED,
+		},
+	);
+	next();
+};
