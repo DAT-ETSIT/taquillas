@@ -3,6 +3,7 @@ const defaultController = require('../controllers/defaultController');
 const location = require('../controllers/admin/location');
 const locker = require('../controllers/admin/locker');
 const paymentMethod = require('../controllers/admin/paymentMethod');
+const user = require('../controllers/admin/user');
 
 const router = express.Router();
 
@@ -84,6 +85,27 @@ router.put(
 );
 router.delete(
 	'/paymentMethod/:paymentMethodId(\\d+)',
+	defaultController.destroy,
+);
+// Routes for the model user
+router.get(
+	'/users',
+	user.index, defaultController.index,
+);
+router.get(
+	'/user/:userId(\\d+)',
+	defaultController.show,
+);
+router.post(
+	'/user',
+	user.create, defaultController.create,
+);
+router.put(
+	'/user/:userId(\\d+)',
+	user.update, defaultController.update,
+);
+router.delete(
+	'/user/:userId(\\d+)',
 	defaultController.destroy,
 );
 
