@@ -5,6 +5,7 @@ const locker = require('../controllers/admin/locker');
 const user = require('../controllers/admin/user');
 const payment = require('../controllers/admin/payment');
 const paymentMethod = require('../controllers/admin/paymentMethod');
+const rental = require('../controllers/admin/rental');
 
 const router = express.Router();
 
@@ -138,4 +139,31 @@ router.delete(
 	defaultController.destroy,
 );
 
+router.param(
+	'rentalId',
+	defaultController.load(rental.model, rental.loadOptions),
+);
+
+// Routes for the model rental
+router.get(
+	'/rentals',
+	rental.index, defaultController.index,
+);
+router.get(
+	'/rental/:rentalId(\\d+)',
+	defaultController.show,
+);
+
+router.post(
+	'/rental',
+	rental.create, defaultController.create,
+);
+router.put(
+	'/rental/:rentalId(\\d+)',
+	rental.update, defaultController.update,
+);
+router.delete(
+	'/rental/:rentalId(\\d+)',
+	defaultController.destroy,
+);
 module.exports = router;
