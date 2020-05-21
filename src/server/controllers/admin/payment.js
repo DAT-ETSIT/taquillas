@@ -27,3 +27,8 @@ exports.index = (req, res, next) => {
 	next();
 };
 
+exports.update = (req, res, next) => {
+	req.allowedFields = ['quantity', 'userId', 'rentalId', 'paymentMethodId'];
+	next();
+};
+
