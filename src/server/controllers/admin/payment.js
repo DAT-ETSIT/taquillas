@@ -32,3 +32,14 @@ exports.update = (req, res, next) => {
 	next();
 };
 
+exports.create = (req, res, next) => {
+	req.entity = models.Payment.build(
+		{
+			quantity: req.body.quantity,
+			userId: req.body.userId,
+			rentalId: req.body.rentalId ? req.body.rentalId : null,
+			paymentMethodId: req.body.paymentMethodId ? req.body.paymentMethodId : null,
+		},
+	);
+	next();
+};
