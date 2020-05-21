@@ -9,3 +9,8 @@ exports.setDefaults = (req, res, next) => {
 	next();
 };
 
+exports.update = (req, res, next) => {
+	req.allowedFields = ['name', 'description'];
+	next();
+};
+
