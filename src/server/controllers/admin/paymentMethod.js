@@ -14,3 +14,12 @@ exports.update = (req, res, next) => {
 	next();
 };
 
+exports.create = (req, res, next) => {
+	req.entity = models.PaymentMethod.build(
+		{
+			name: req.body.name,
+			description: req.body.description,
+		},
+	);
+	next();
+};
