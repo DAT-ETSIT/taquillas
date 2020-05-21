@@ -2,8 +2,9 @@ const express = require('express');
 const defaultController = require('../controllers/defaultController');
 const location = require('../controllers/admin/location');
 const locker = require('../controllers/admin/locker');
-const paymentMethod = require('../controllers/admin/paymentMethod');
 const user = require('../controllers/admin/user');
+const payment = require('../controllers/admin/payment');
+const paymentMethod = require('../controllers/admin/paymentMethod');
 
 const router = express.Router();
 
@@ -106,6 +107,34 @@ router.put(
 );
 router.delete(
 	'/user/:userId(\\d+)',
+	defaultController.destroy,
+);
+
+// Autoload for routes using :param
+router.param(
+	'paymentId',
+	defaultController.load(payment.model, payment.loadOptions),
+);
+
+// Routes for the model payment
+router.get(
+	'/payments',
+	payment.index, defaultController.index,
+);
+router.get(
+	'/payment/:paymentId(\\d+)',
+	defaultController.show,
+);
+router.post(
+	'/payment',
+	payment.create, defaultController.create,
+);
+router.put(
+	'/payment/:paymentId(\\d+)',
+	payment.update, defaultController.update,
+);
+router.delete(
+	'/payment/:paymentId(\\d+)',
 	defaultController.destroy,
 );
 
