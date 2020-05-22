@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV || 'development';
 const got = require('got');
 const xml2js = require('xml2js');
 const xmlProcessors = require('xml2js/lib/processors');
+const { UnauthorizedError } = require('../../errors');
 const config = require('../../config/server.json')[env];
 const models = require('../../models');
 
@@ -131,3 +132,27 @@ exports.destroy = (req, res) => {
 	res.json(currentSession);
 };
 
+// Auth middlewares
+exports.loginRequired = (req, res, next) => {
+	if (!req.session.user) next(new UnauthorizedError());
+	next();
+};
+
+exports.adminRequired = (req, res, next) => {
+	const isAdmin = req.session.user.isAdmin === true;
+	if (!isAdmin) next(new UnauthorizedError());
+	next();
+};
+
+exports.myselfRequired = (req, res, next) => {
+	const isMyself = req.owner.id === req.session.user.id;
+	if (!isMyself) next(new UnauthorizedError());
+	next();
+};
+
+exports.adminOrMyselfRequired = (req, res, next) => {
+	const isAdmin = req.session.user.isAdmin === true;
+	const isMyself = req.owner.id === req.session.user.id;
+	if (!isMyself && !isAdmin) next(new UnauthorizedError());
+	next();
+};
