@@ -120,3 +120,14 @@ exports.create = (req, res, next) => {
 		.catch((error) => next(error));
 };
 
+exports.index = (req, res) => {
+	const currentSession = req.session || {};
+	res.json(currentSession);
+};
+
+exports.destroy = (req, res) => {
+	req.session.destroy();
+	const currentSession = req.session || {};
+	res.json(currentSession);
+};
+
