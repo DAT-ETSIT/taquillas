@@ -6,7 +6,7 @@ const router = require('./router');
 const adminRouter = require('./routers/admin');
 const appRouter = require('./routers/app');
 const config = require('./config/server.json')[env];
-const { globalErrorHandler } = require('./errors');
+const { globalErrorHandler, NotFoundError } = require('./errors');
 
 const app = express();
 
@@ -23,6 +23,10 @@ if (config.usingProxy) app.set('trust proxy', 1);
 app.use('/api/v1/app', appRouter);
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1', router);
+app.use('/api/v1/*', () => {
+	throw new NotFoundError();
+});
+
 // Any other route.
 app.use('*', (req, res) => res.sendFile(path.join(__dirname, '../../dist/index.html')));
 // The error handler that produces 404/500 HTTP responses.
