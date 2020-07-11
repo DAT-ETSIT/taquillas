@@ -11,6 +11,8 @@ function pong(state = false, action = {}) {
 
 function session(state = {}, action = {}) {
 	switch (action.type) {
+	case 'SET_SESSION':
+		return action.payload.session;
 	default:
 		return state;
 	}
