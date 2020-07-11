@@ -1,0 +1,47 @@
+.welcomeSection {
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: row;
+	height: 80%;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.welcomeSection > * {
+	flex: 1 1 0;
+}
+.welcomeLogo {
+	height: fit-content;
+    margin-right: 50px;
+    display: inline-block;
+    font-size: 63px;
+    vertical-align: top;
+    font-style: italic;
+    text-align: right;
+}
+.welcomeLogo img {
+	height: 112px;
+    vertical-align: middle;
+}
+.loginButton {
+	margin-left: 50px;
+	width: fit-content;
+	padding: 20px;
+	font-family: 'Mukta Malar';
+	font-weight: 700;
+	border-radius: 3px;
+	color: white;
+	font-style: italic;
+	font-size: 2em;
+	background: -webkit--webkit-linear-gradient(65deg, rgb(246, 85, 85) 0%, rgb(245, 85, 86) 0%, rgb(252, 207, 49) 100%);
+	background: -webkit-linear-gradient(65deg, rgb(246, 85, 85) 0%, rgb(245, 85, 86) 0%, rgb(252, 207, 49) 100%);
+	transition: box-shadow 0.3s;
+    transition-property: box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+.loginButton:hover {
+	opacity: 0.9;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
