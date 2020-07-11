@@ -1,0 +1,74 @@
+.userForm{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	align-items: stretch;
+	flex-wrap: nowrap;
+    width: fit-content;
+    margin-left: 40px;
+}
+input[type="submit"], .cancel {
+	padding: 10px;
+	font-family: 'Mukta Malar';
+	font-weight: 700;
+	border-radius: 3px;
+	color: white;
+	font-style: italic;
+	font-size: 1.5em;
+	transition: box-shadow 0.3s;
+    transition-property: box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    border: 0px;
+    outline: none;
+    width: fit-content;
+    align-self: flex-end;
+}
+.cancel {
+	margin-right: 10px;
+	background:-webkit--webkit-linear-gradient(65deg, rgb(181, 5, 29) 0%, rgb(146, 11, 49) 100%);
+	background:-webkit-linear-gradient(65deg, rgb(181, 5, 29) 0%, rgb(146, 11, 49) 100%);
+}
+input[type="submit"] {
+	background:-webkit--webkit-linear-gradient(65deg, rgb(87, 25, 208) 0%, rgb(11, 204, 238) 100%);
+	background:-webkit-linear-gradient(65deg, rgb(87, 25, 208) 0%, rgb(11, 204, 238) 100%);
+}
+input[type="submit"]:focus {
+	border: 0px;
+}
+input[type="submit"]:hover, .cancel:hover{
+	opacity: 0.9;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+input[type="text"] {
+	padding: 6px;
+    font-size: 17px;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 2px;
+    display: block;
+	min-width: 360px;
+}
+input[type="text"]:enabled {
+    box-shadow: 0px 0px 3px rgba(66,66,66,.27);
+    border-color: #CCCCCC;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  opacity: 0.5; /* Firefox */
+}
+label {
+	padding-bottom: 36px;
+	font-size: 1.4em;
+    font-style: italic;
+    font-weight: 700;
+}
+.formActions {
+	display: flex;
+    justify-content: left;
+    width: 100%;
+}
