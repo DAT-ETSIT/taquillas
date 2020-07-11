@@ -9,7 +9,7 @@ function pong(state = false, action = {}) {
 	}
 }
 
-function loggedUser(state = {}, action = {}) {
+function session(state = {}, action = {}) {
 	switch (action.type) {
 	default:
 		return state;
@@ -51,13 +51,6 @@ function payments(state = [], action = {}) {
 	}
 }
 
-function payment(state = [], action = {}) {
-	switch (action.type) {
-	default:
-		return state;
-	}
-}
-
 function lockerStates(state = [], action = {}) {
 	switch (action.type) {
 	default:
@@ -81,13 +74,12 @@ function paymentMethods(state = [], action = {}) {
 
 const GlobalState = (combineReducers({
 	pong,
-	loggedUser,
+	session,
 	lockers,
 	users,
 	rentals,
 	locations,
 	payments,
-	payment,
 	lockerStates,
 	rentalStates,
 	paymentMethods,
