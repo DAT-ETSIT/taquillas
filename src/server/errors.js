@@ -60,6 +60,7 @@ module.exports.globalErrorHandler = (err, req, res, next) => {
 	}
 
 	// Some other unknown error.
+	console.error(err);
 	res.status(500).json({
 		code: 'internal_server_error',
 		message: 'Internal server error',
