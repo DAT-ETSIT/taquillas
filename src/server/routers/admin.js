@@ -6,9 +6,12 @@ const user = require('../controllers/admin/user');
 const payment = require('../controllers/admin/payment');
 const paymentMethod = require('../controllers/admin/paymentMethod');
 const rental = require('../controllers/admin/rental');
+const session = require('../controllers/app/session');
 
 const router = express.Router();
 
+// All users require a logged user with administrator permissions.
+router.use(session.loginRequired, session.adminRequired);
 // Autoload for routes using :param
 router.param(
 	'locationId',
