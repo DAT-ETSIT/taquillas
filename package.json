@@ -11,7 +11,9 @@
     "server": "nodemon --ignore dist/ --ignore src/client",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "dev": "concurrently --kill-others --raw --default-input-target 1 'yarn run client' 'yarn run server'",
-    "test": "eslint . --ext .js,.jsx --ignore-pattern dist/ --ignore-pattern node_modules/"
+    "lint-css": "stylelint \"**/*.css\"",
+    "lint-js": "eslint . --ext .js,.jsx --ignore-pattern dist/ --ignore-pattern node_modules/",
+    "test": "yarn run lint-js && yarn run lint-css"
   },
   "repository": "https://github.com/DAT-ETSIT/taquillas",
   "author": "Delegación de Alumnos de Telecomunicación",
