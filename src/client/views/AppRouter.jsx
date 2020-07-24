@@ -15,12 +15,23 @@ const AppRouter = () => {
 	const session = useSelector((state) => state.session);
 
 	const adminRoutes = (
-		<Fragment key="adminRoutes" />
+		<Fragment key="adminRoutes">
+			<Route exact path="/admin/locations" component={TestView} />
+			<Route exact path="/admin/payments" component={TestView} />
+			<Route exact path="/admin/lockers" component={TestView} />
+			<Route exact path="/admin/users" component={TestView} />
+			<Route exact path="/admin/rentals" component={TestView} />
+			<Route exact path="/admin/requests" component={TestView} />
+		</Fragment>
 	);
 	const userLogedSwitch = (
 		<Layout>
 			<Switch>
 				<Route exact path="/" component={TestView} />
+				<Route exact path="/logout" component={TestView} />
+				<Route exact path="/myLockers" component={TestView} />
+				<Route exact path="/request" component={TestView} />
+				<Route exact path="/me" component={TestView} />
 				{session.user && session.user.isAdmin ? adminRoutes : null}
 				<Route path="/500" render={(props) => <ErrorView {...props} code={500} />} />
 				<Route render={(props) => <ErrorView {...props} code={404} />} />
