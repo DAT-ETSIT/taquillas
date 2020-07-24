@@ -10,6 +10,8 @@ import ErrorView from './ErrorView';
 import SignUp from './SignUp/SignUp';
 import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
+import LogOut from './LogOut';
+
 
 const AppRouter = () => {
 	const session = useSelector((state) => state.session);
@@ -28,7 +30,7 @@ const AppRouter = () => {
 		<Layout>
 			<Switch>
 				<Route exact path="/" component={TestView} />
-				<Route exact path="/logout" component={TestView} />
+				<Route exact path="/logout" component={LogOut} />
 				<Route exact path="/myLockers" component={TestView} />
 				<Route exact path="/request" component={TestView} />
 				<Route exact path="/me" component={TestView} />
