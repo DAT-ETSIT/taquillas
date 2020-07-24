@@ -1,22 +1,25 @@
 h1 {
-    font-size: 72px;
-    color: #F65555;
+  font-size: 72px;
+  color: #f65555;
 }
 
-html, body, #root {
-	font-family: 'Mukta Malar', sans-serif;
-	background-color: white;
-	height: 100%;
-	margin-top: 0px;
-	margin-bottom: 0px;
+html,
+body,
+#root {
+  font-family: 'Mukta Malar', sans-serif;
+  background-color: white;
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
 }
+
 body {
-	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a {
-	text-decoration: none;
-	color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
 }
