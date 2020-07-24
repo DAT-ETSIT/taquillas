@@ -1,0 +1,11 @@
+nav {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: left;
+  padding: 0 2% 1% 2%;
+  align-items: stretch;
+  height: fit-content;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
