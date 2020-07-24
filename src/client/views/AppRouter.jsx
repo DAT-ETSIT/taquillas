@@ -9,6 +9,7 @@ import Welcome from './Welcome/Welcome';
 import ErrorView from './ErrorView';
 import SignUp from './SignUp/SignUp';
 import EndSession from '../components/EndSession';
+import Layout from '../components/Layout/Layout';
 
 const AppRouter = () => {
 	const session = useSelector((state) => state.session);
@@ -17,12 +18,14 @@ const AppRouter = () => {
 		<Fragment key="adminRoutes" />
 	);
 	const userLogedSwitch = (
-		<Switch>
-			<Route exact path="/" component={TestView} />
-			{session.user && session.user.isAdmin ? adminRoutes : null}
-			<Route path="/500" render={(props) => <ErrorView {...props} code={500} />} />
-			<Route render={(props) => <ErrorView {...props} code={404} />} />
-		</Switch>
+		<Layout>
+			<Switch>
+				<Route exact path="/" component={TestView} />
+				{session.user && session.user.isAdmin ? adminRoutes : null}
+				<Route path="/500" render={(props) => <ErrorView {...props} code={500} />} />
+				<Route render={(props) => <ErrorView {...props} code={404} />} />
+			</Switch>
+		</Layout>
 	);
 
 	const defaultSwitch = (
