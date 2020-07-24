@@ -1,0 +1,8 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
