@@ -12,6 +12,7 @@ const initalState = {
 	lockerStates: [],
 	rentalStates: [],
 	paymentMethods: [],
+	messages: [],
 };
 
 const store = createStore(GlobalState, initalState);
