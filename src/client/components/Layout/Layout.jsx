@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import AdminNav from '../AdminNav/AdminNav';
+import Message from '../Message/Message';
 import './styles.css';
 
 function Layout(props) {
@@ -10,6 +11,7 @@ function Layout(props) {
 
 	return (
 		<main id="main">
+			<Message />
 			<Header />
 			{location.pathname.includes('admin') ? (<AdminNav />) : null}
 			<div className="main_section" style={{ flexGrow: '1' }}>{children}</div>
