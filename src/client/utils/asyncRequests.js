@@ -37,37 +37,34 @@ export const ajaxErrHandler = (res) => {
 /**
  * Send a GET request to the desired URL.
  */
-export function fetchGet(url) {
-	return fetch(url)
-		.then(ajaxErrHandler);
-}
+export const fetchGet = (url) => fetch(url).then(ajaxErrHandler);
 
 /**
  * Send a DELETE request to the desired URL, with the body as a JSON-encoded
  * content.
  */
-export function fetchDelete(url, body) {
-	return fetch(url, {
+export const fetchDelete = (url, body = {}) => fetch(
+	url,
+	{
 		method: 'DELETE',
 		body: JSON.stringify(body),
 		headers: {
 			'Content-Type': 'application/json',
 		},
-	})
-		.then(ajaxErrHandler);
-}
+	},
+).then(ajaxErrHandler);
 
 /**
  * Send a POST request to the desired URL, with the body as a JSON-encoded
  * content.
  */
-export function fetchPost(url, body) {
-	return fetch(url, {
+export const fetchPost = (url, body = {}) => fetch(
+	url,
+	{
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {
 			'Content-Type': 'application/json',
 		},
-	})
-		.then(ajaxErrHandler);
-}
+	},
+).then(ajaxErrHandler);
