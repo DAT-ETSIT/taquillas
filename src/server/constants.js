@@ -12,3 +12,5 @@ exports.LockerStates = {
 	RESERVED: 3,
 	RENTED: 4,
 };
+
+exports.MAX_RENTALS = 5;
