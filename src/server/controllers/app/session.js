@@ -1,11 +1,12 @@
 const env = process.env.NODE_ENV || 'development';
+const { Op } = require('sequelize');
 const got = require('got');
 const xml2js = require('xml2js');
 const xmlProcessors = require('xml2js/lib/processors');
 const { UnauthorizedError, LimitedUserError } = require('../../errors');
+const { RentalStates } = require('../../constants');
 const config = require('../../config/server.json')[env];
 const models = require('../../models');
-
 
 const login = (req, res) => {
 	// Compose the backend URL that should handle the redirect after
@@ -23,9 +24,15 @@ const login = (req, res) => {
 
 const loginMock = (req, res, next) => {
 	const options = {
-		raw: true,
 		limit: 1,
 		order: [['createdAt', 'ASC']],
+		include: [
+			{
+				model: models.Rental,
+				where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED } },
+				required: false,
+			},
+		],
 	};
 	models.User.findAll(options)
 		.then((users) => {
@@ -107,10 +114,16 @@ exports.casLogin = (req, res, next) => {
 exports.create = (req, res, next) => {
 	const options = {
 		where: { email: req.session.email },
-		raw: true,
+		include: [
+			{
+				model: models.Rental,
+				where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED } },
+				required: false,
+			},
+		],
 	};
 
-	models.User.findOne(options)
+	return models.User.findOne(options)
 		.then((user) => {
 			if (!user) {
 				return res.redirect('/signup');
@@ -123,13 +136,13 @@ exports.create = (req, res, next) => {
 
 exports.index = (req, res) => {
 	const currentSession = req.session || {};
-	res.json(currentSession);
+	return res.json(currentSession);
 };
 
 exports.destroy = (req, res) => {
 	req.session.destroy();
 	const currentSession = req.session || {};
-	res.json(currentSession);
+	return res.json(currentSession);
 };
 
 // Auth middlewares
