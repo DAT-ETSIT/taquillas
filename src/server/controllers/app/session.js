@@ -145,6 +145,28 @@ exports.destroy = (req, res) => {
 	return res.json(currentSession);
 };
 
+exports.updateUser = (req, res, next) => {
+	const options = {
+		where: { email: req.session.email },
+		include: [
+			{
+				model: models.Rental,
+				where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED } },
+				required: false,
+			},
+		],
+	};
+
+	return models.User.findOne(options)
+		.then((user) => {
+			if (!user) {
+				req.session.user = {};
+			}
+			req.session.user = user;
+			return next();
+		})
+		.catch((error) => next(error));
+};
 // Auth middlewares
 exports.loginRequired = (req, res, next) => {
 	if (!req.session.user) next(new UnauthorizedError());
