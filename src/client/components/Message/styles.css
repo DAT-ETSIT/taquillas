@@ -1,0 +1,84 @@
+.shadow {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.mainModal {
+  width: 350px;
+  height: fit-content;
+  padding: 20px 20px;
+  background: #fff;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 20vh;
+  box-shadow: 1px 1px 6px black;
+}
+
+.modalTitle {
+  font-size: 1.5em;
+  font-style: italic;
+  border: #80808063;
+  border-style: none none solid none;
+  border-width: thin;
+  align-self: stretch;
+}
+
+.modalText {
+  margin-top: 10px;
+}
+
+.mainModal > button {
+  align-self: flex-end;
+}
+
+.error {
+  border: red;
+  border-style: solid none none none;
+}
+
+.info {
+  border: limegreen;
+  border-style: solid none none none;
+}
+
+.show {
+  opacity: 1;
+  z-index: 2;
+  animation: show 0.5s;
+}
+
+.zoom {
+  animation: zoom 0.5s;
+  transform: scale(1);
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    z-index: -1;
+  }
+
+  to {
+    opacity: 1;
+    z-index: 2;
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
