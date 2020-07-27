@@ -1,17 +1,39 @@
-const env = process.env.NODE_ENV || 'development';
 const { ValidationError } = require('sequelize');
-const config = require('./config/server.json')[env];
 
-class BadRequestError extends Error {}
+class BadRequestError extends Error {
+	constructor(message = 'Bad request') {
+		super(message);
+		this.statusCode = 400;
+		this.codeName = 'bad_request';
+	}
+}
 module.exports.BadRequestError = BadRequestError;
 
-class LimitedUserError extends Error {}
+class LimitedUserError extends Error {
+	constructor(message = 'This user is not allowed to make such action') {
+		super(message);
+		this.statusCode = 403;
+		this.codeName = 'limited_user';
+	}
+}
 module.exports.LimitedUserError = LimitedUserError;
 
-class NotFoundError extends Error {}
+class NotFoundError extends Error {
+	constructor(message = 'Page not found') {
+		super(message);
+		this.statusCode = 404;
+		this.codeName = 'not_found';
+	}
+}
 module.exports.NotFoundError = NotFoundError;
 
-class UnauthorizedError extends Error {}
+class UnauthorizedError extends Error {
+	constructor(message = 'Login required') {
+		super(message);
+		this.statusCode = 401;
+		this.codeName = 'unauthorized';
+	}
+}
 module.exports.UnauthorizedError = UnauthorizedError;
 
 // The global error handler.
@@ -20,41 +42,18 @@ module.exports.UnauthorizedError = UnauthorizedError;
 // eslint-disable-next-line no-unused-vars
 module.exports.globalErrorHandler = (err, req, res, next) => {
 	if (err instanceof BadRequestError
-		// Error type for SQL queries that introduce duplicate values on keys
-		// that should be unique.
-		|| err.code === 'ER_DUP_ENTRY') {
-		return res.status(400).json({
-			code: 'bad_request',
-			message: 'Bad request',
-		});
-	}
-
-	if (err instanceof LimitedUserError) {
-		return res.status(403).json({
-			code: 'limited_user',
-			message: 'This user is not allowed to make such action',
-		});
-	}
-
-	if (err instanceof NotFoundError) {
-		return res.status(404).json({
-			code: 'not_found',
-			message: 'Page not found',
-		});
-	}
-
-	if (err instanceof UnauthorizedError) {
-		return res.status(401).json({
-			code: 'unauthorized',
-			message: 'Login required',
-			ssoUrl: `${config.cas.ssoUrl}/login`,
-			serviceBase: config.url,
+		|| err instanceof LimitedUserError
+		|| err instanceof NotFoundError
+		|| err instanceof UnauthorizedError) {
+		return res.status(err.statusCode).json({
+			error: err.codeName,
+			message: err.message,
 		});
 	}
 
 	if (err instanceof ValidationError) {
 		return res.status(400).json({
-			code: 'bad_request',
+			error: 'bad_request',
 			message: err.errors,
 		});
 	}
@@ -62,7 +61,7 @@ module.exports.globalErrorHandler = (err, req, res, next) => {
 	// Some other unknown error.
 	console.error(err);
 	res.status(500).json({
-		code: 'internal_server_error',
+		error: 'internal_server_error',
 		message: 'Internal server error',
 	});
 	return next(err); // Let it pass the middleware so Sentry can catch it.
