@@ -41,6 +41,8 @@ function rentals(state = [], action = {}) {
 
 function locations(state = [], action = {}) {
 	switch (action.type) {
+	case 'SET_LOCATIONS':
+		return action.payload.locations;
 	default:
 		return state;
 	}
