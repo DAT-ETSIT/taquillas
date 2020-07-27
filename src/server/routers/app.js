@@ -1,6 +1,10 @@
 const express = require('express');
 const session = require('../controllers/app/session');
 const user = require('../controllers/app/user');
+const location = require('../controllers/app/location');
+const locker = require('../controllers/app/locker');
+const rental = require('../controllers/app/rental');
+const defaultController = require('../controllers/defaultController');
 
 const router = express.Router();
 
@@ -12,5 +16,30 @@ router.delete('/session', session.destroy);
 
 // User routes
 router.post('/user', user.create);
+
+// The following routes require the user to be logged in.
+router.use(session.loginRequired);
+
+// Locations
+router.param('locationId', location.load);
+router.get('/locations', location.index, defaultController.index);
+
+// Lockers
+router.param('lockerId', locker.load);
+
+// Action routes
+router.post(
+	'/request/any/:locationId',
+	rental.requestRandomLocker,
+	session.updateUser,
+	defaultController.sendResult,
+);
+
+router.post(
+	'/request/locker/:lockerId',
+	rental.requestLocker,
+	session.updateUser,
+	defaultController.sendResult,
+);
 
 module.exports = router;
