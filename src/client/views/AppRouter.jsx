@@ -8,6 +8,7 @@ import TestView from './TestView';
 import Welcome from './Welcome/Welcome';
 import ErrorView from './ErrorView';
 import SignUp from './SignUp/SignUp';
+import Catalog from './Catalog/Catalog';
 import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
 import LogOut from './LogOut';
@@ -29,7 +30,7 @@ const AppRouter = () => {
 	const userLogedSwitch = (
 		<Layout>
 			<Switch>
-				<Route exact path="/" component={TestView} />
+				<Route exact path="/" component={Catalog} />
 				<Route exact path="/logout" component={LogOut} />
 				<Route exact path="/myLockers" component={TestView} />
 				<Route exact path="/request" component={TestView} />
