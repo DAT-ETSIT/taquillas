@@ -74,6 +74,17 @@ function paymentMethods(state = [], action = {}) {
 	}
 }
 
+function messages(state = [], action = {}) {
+	switch (action.type) {
+	case 'ADD_MESSAGE':
+		return [...state, action.payload.message];
+	case 'REMOVE_MESSAGE':
+		return state.slice(1);
+	default:
+		return state;
+	}
+}
+
 const GlobalState = (combineReducers({
 	pong,
 	session,
@@ -85,6 +96,7 @@ const GlobalState = (combineReducers({
 	lockerStates,
 	rentalStates,
 	paymentMethods,
+	messages,
 }));
 
 export default GlobalState;
