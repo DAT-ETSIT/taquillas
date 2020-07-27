@@ -65,3 +65,7 @@ exports.create = (req, res, next) => {
 			next(error);
 		});
 };
+
+exports.sendResult = (req, res) => {
+	res.json(req.result);
+};
