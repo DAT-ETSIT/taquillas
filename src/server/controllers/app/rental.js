@@ -3,10 +3,17 @@ const { LockerStates, RentalStates, MAX_RENTALS } = require('../../constants');
 const { NotFoundError, BadRequestError, LimitedUserError } = require('../../errors');
 
 exports.load = (req, res, next, rentalId) => {
-	models.Rental.findByPk(rentalId)
+	const options = {
+		include: [
+			models.User,
+			models.Locker,
+		],
+	};
+	models.Rental.findByPk(rentalId, options)
 		.then((rental) => {
 			if (rental) {
 				req.rental = rental;
+				req.owner = rental.User;
 				next();
 			} else {
 				next(new NotFoundError());
