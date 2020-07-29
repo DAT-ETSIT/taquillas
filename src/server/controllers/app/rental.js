@@ -71,6 +71,17 @@ exports.requestRandomLocker = (req, res, next) => {
 			},
 		)).then((rental) => {
 			req.result = rental;
-			next();
+			return next();
+		});
+};
+
+exports.requestRenew = (req, res, next) => {
+	if (req.rental.rentalStateId !== RentalStates.CLAIMED) {
+		return next(new BadRequestError('No puedes pedir renovación de esta taquilla'));
+	}
+	return req.rental.update({ rentalStateId: RentalStates.RENEW_REQUESTED })
+		.then((rental) => {
+			req.result = rental;
+			return next();
 		});
 };
