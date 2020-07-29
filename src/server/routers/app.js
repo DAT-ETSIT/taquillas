@@ -28,16 +28,25 @@ router.get('/locations', location.index, defaultController.index);
 router.param('lockerId', locker.load);
 
 // Action routes
+router.param('rentalId', rental.load);
 router.post(
-	'/request/any/:locationId',
+	'/request/any/:locationId(\\d+)',
 	rental.requestRandomLocker,
 	session.updateUser,
 	defaultController.sendResult,
 );
 
 router.post(
-	'/request/locker/:lockerId',
+	'/request/locker/:lockerId(\\d+)',
 	rental.requestLocker,
+	session.updateUser,
+	defaultController.sendResult,
+);
+
+router.post(
+	'/request/renew/:rentalId(\\d+)',
+	session.adminOrMyselfRequired,
+	rental.requestRenew,
 	session.updateUser,
 	defaultController.sendResult,
 );
