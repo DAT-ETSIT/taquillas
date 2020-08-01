@@ -47,3 +47,13 @@ exports.create = (req, res, next) => {
 	);
 	next();
 };
+
+exports.acceptRequest = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.REQUESTED) {
+		return next(new BadRequestError('No se puede aceptar una solicitud de un alquiler que no se encuentre en estado "Solicitado"'));
+	}
+	return req.entity.update({ rentalStateId: RentalStates.RESERVED })
+		.then((rental) => rental.reload())
+		.then((rental) => res.json(rental));
+};
+
