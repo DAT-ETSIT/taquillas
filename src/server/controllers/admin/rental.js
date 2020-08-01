@@ -199,3 +199,11 @@ exports.addDeposit = (req, res) => {
 		.then((payment) => req.entity.update({ deposit: req.entity.deposit + payment.quantity }))
 		.then((rental) => res.json(rental));
 };
+
+exports.consumeDeposit = (req, res, next) => {
+	if (req.entity.deposit === 0) {
+		return next(new BadRequestError('No se puede consumir una fianza igual a 0'));
+	}
+	return req.entity.update({ deposit: 0 })
+		.then((rental) => res.json(rental));
+};
