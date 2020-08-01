@@ -66,3 +66,46 @@ exports.denyRequest = (req, res, next) => {
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
+
+exports.startRental = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.RESERVED) {
+		return next(new BadRequestError('No puedes iniciar un alquiler que no haya sido previamente aceptado por un administrador'));
+	}
+	if (req.entity.Locker.lockerStateId !== LockerStates.RESERVED) {
+		return next(new BadRequestError('No puedes iniciar un alquiler con una taquilla que no se encuentre reservada previamente'));
+	}
+	const includesDeposit = parseInt(req.body.includesDeposit, 10) === 1;
+	const rentalPayment = models.Payment.build(
+		{
+			quantity: parseFloat(req.body.rentalCost),
+			userId: req.entity.User.id,
+			rentalId: req.entity.id,
+			paymentMethodId: req.body.paymentMethodId,
+		},
+	);
+
+	return rentalPayment.save()
+		.then(() => {
+			if (includesDeposit) {
+				const depositPayment = models.Payment.build(
+					{
+						quantity: parseFloat(req.body.depositCost),
+						userId: req.entity.User.id,
+						rentalId: req.entity.id,
+						paymentMethodId: req.body.paymentMethodId,
+					},
+				);
+				return depositPayment.save();
+			}
+			return null;
+		})
+		.then(() => req.entity.Locker.update({ lockerStateId: LockerStates.RENTED }))
+		.then(() => req.entity.update({
+			rentalStateId: RentalStates.RENTED,
+			deposit: (req.includesDeposit
+				? req.entity.deposit + parseFloat(req.body.depositCost)
+				: req.entity.deposit),
+		}))
+		.then((rental) => rental.reload())
+		.then((rental) => res.json(rental));
+};
