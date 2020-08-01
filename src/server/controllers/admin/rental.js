@@ -1,5 +1,6 @@
 const models = require('../../models');
-const { RentalStates } = require('../../constants');
+const { RentalStates, LockerStates } = require('../../constants');
+const { BadRequestError } = require('../../errors');
 
 exports.model = models.Rental;
 exports.loadOptions = {
