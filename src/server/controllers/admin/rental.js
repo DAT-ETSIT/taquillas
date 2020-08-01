@@ -128,3 +128,12 @@ exports.acceptRenew = (req, res, next) => {
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
+
+exports.denyRenew = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.RENEW_REQUESTED) {
+		return next(new BadRequestError('No puedes rechazar la renovación de un alquiler que no haya solicitado previamente dicha renovación'));
+	}
+	return req.entity.update({ rentalStateId: RentalStates.CLAIMED })
+		.then((rental) => rental.reload())
+		.then((rental) => res.json(rental));
+};
