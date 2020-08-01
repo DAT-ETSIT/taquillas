@@ -137,3 +137,34 @@ exports.denyRenew = (req, res, next) => {
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
+
+exports.endRental = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.CLAIMED) {
+		return next(new BadRequestError('No se puede terminar un alquiler del cuál no se haya informado su finalización previamente'));
+	}
+	if (parseInt(req.body.returnDespoit, 10) === 1) {
+		const depositPayment = models.Payment.build(
+			{
+				quantity: req.entity.deposit * (-1),
+				userId: req.entity.User.id,
+				rentalId: req.entity.id,
+				paymentMethodId: req.body.paymentMethodId,
+			},
+		);
+		return depositPayment.save()
+			.then(() => req.entity.Locker.update({ lockerStateId: req.body.lockerStateId }))
+			.then(() => req.entity.update({
+				rentalStateId: RentalStates.RETURNED,
+				deposit: 0,
+			}))
+			.then((rental) => rental.reload())
+			.then((rental) => res.json(rental));
+	}
+
+	return req.entity.Locker.update({ lockerStateId: req.body.lockerStateId })
+		.then(() => req.entity.update({
+			rentalStateId: RentalStates.RETURNED,
+		}))
+		.then((rental) => rental.reload())
+		.then((rental) => res.json(rental));
+};
