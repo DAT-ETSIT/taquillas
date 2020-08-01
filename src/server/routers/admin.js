@@ -169,4 +169,47 @@ router.delete(
 	'/rental/:rentalId(\\d+)',
 	defaultController.destroy,
 );
+
+// Routes for actions
+
+router.post(
+	'/request/:rentalId(\\d+)/accept',
+	rental.acceptRequest,
+);
+router.post(
+	'/request/:rentalId(\\d+)/deny',
+	rental.denyRequest,
+);
+router.post(
+	'/rental/:rentalId(\\d+)/start',
+	rental.startRental,
+);
+router.post(
+	'/rental/:rentalId(\\d+)/claim',
+	rental.claimRental,
+);
+router.post(
+	'/request/:rentalId(\\d+)/renew/accept',
+	rental.acceptRenew,
+);
+router.post(
+	'/request/:rentalId(\\d+)/renew/deny',
+	rental.denyRenew,
+);
+router.post(
+	'/rental/:rentalId(\\d+)/end',
+	rental.endRental,
+);
+router.post(
+	'/rental/:rentalId(\\d+)/deposit/return',
+	rental.returnDeposit,
+);
+router.post(
+	'/rental/:rentalId(\\d+)/deposit/add',
+	rental.addDeposit,
+);
+router.post(
+	'/rental/:rentalId(\\d+)/deposit/consume',
+	rental.consumeDeposit,
+);
 module.exports = router;
