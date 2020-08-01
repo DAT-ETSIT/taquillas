@@ -6,13 +6,10 @@ exports.loadOptions = {
 	include: [
 		models.RentalState,
 		models.User,
+		models.Payment,
 		{
 			model: models.Locker,
 			include: [models.Location],
-		},
-		{
-			model: models.Payment,
-			include: [models.User],
 		},
 	],
 };
