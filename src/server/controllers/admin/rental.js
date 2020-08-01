@@ -109,3 +109,12 @@ exports.startRental = (req, res, next) => {
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
+
+exports.claimRental = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.RENTED) {
+		return next(new BadRequestError('No puedes reclamar la finalización de un alquiler que no está en curso'));
+	}
+	return req.entity.update({ rentalStateId: RentalStates.CLAIMED })
+		.then((rental) => rental.reload())
+		.then((rental) => res.json(rental));
+};
