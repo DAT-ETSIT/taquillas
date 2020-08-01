@@ -168,3 +168,20 @@ exports.endRental = (req, res, next) => {
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
+
+exports.returnDeposit = (req, res, next) => {
+	if (req.entity.deposit < parseFloat(req.body.quantity)) {
+		return next(new BadRequestError('No se puede devolver más fianza de la restante'));
+	}
+	const depositPayment = models.Payment.build(
+		{
+			quantity: parseFloat(req.body.quantity) * (-1),
+			userId: req.entity.User.id,
+			rentalId: req.entity.id,
+			paymentMethodId: req.body.paymentMethodId,
+		},
+	);
+	return depositPayment.save()
+		.then((payment) => req.entity.update({ deposit: req.entity.deposit - payment.quantity }))
+		.then((rental) => res.json(rental));
+};
