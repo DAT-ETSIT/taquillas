@@ -118,3 +118,13 @@ exports.claimRental = (req, res, next) => {
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
+
+exports.acceptRenew = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.RENEW_REQUESTED) {
+		return next(new BadRequestError('No se puede aceptar la renovación de un alquiler que no haya solicitado previamente dicha renovación'));
+	}
+	return req.entity.Locker.update({ lockerStateId: LockerStates.RESERVED })
+		.then(() => req.entity.update({ rentalStateId: RentalStates.RESERVED }))
+		.then((rental) => rental.reload())
+		.then((rental) => res.json(rental));
+};
