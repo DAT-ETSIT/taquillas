@@ -185,3 +185,17 @@ exports.returnDeposit = (req, res, next) => {
 		.then((payment) => req.entity.update({ deposit: req.entity.deposit - payment.quantity }))
 		.then((rental) => res.json(rental));
 };
+
+exports.addDeposit = (req, res) => {
+	const depositPayment = models.Payment.build(
+		{
+			quantity: parseFloat(req.body.quantity),
+			userId: req.entity.User.id,
+			rentalId: req.entity.id,
+			paymentMethodId: req.body.paymentMethodId,
+		},
+	);
+	return depositPayment.save()
+		.then((payment) => req.entity.update({ deposit: req.entity.deposit + payment.quantity }))
+		.then((rental) => res.json(rental));
+};
