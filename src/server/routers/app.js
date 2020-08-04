@@ -14,11 +14,21 @@ router.get('/login', session.login);
 router.get('/session/new', session.casLogin, session.create);
 router.delete('/session', session.destroy);
 
-// User routes
+// Create user endpoint
 router.post('/user', user.create);
 
 // The following routes require the user to be logged in.
 router.use(session.loginRequired);
+
+// User routes
+router.param('userId', user.load);
+router.post(
+	'/user/:userId(\\d+)',
+	session.adminOrMyselfRequired,
+	user.update,
+	session.updateUser,
+	defaultController.sendResult,
+);
 
 // Locations
 router.param('locationId', location.load);
@@ -50,5 +60,6 @@ router.post(
 	session.updateUser,
 	defaultController.sendResult,
 );
+
 
 module.exports = router;
