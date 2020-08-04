@@ -8,5 +8,3 @@ export const createUser = (newUser) => fetchPost('/api/v1/app/user', newUser)
 export const updateUser = (userId, userData) => fetchPost(`/api/v1/app/user/${userId}`, userData)
 	.then((r) => r.json())
 	.then(() => getSession());
-
-export default createUser;
