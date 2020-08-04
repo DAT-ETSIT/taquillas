@@ -1,5 +1,24 @@
 const models = require('../../models');
-const { BadRequestError } = require('../../errors');
+const { BadRequestError, NotFoundError } = require('../../errors');
+
+exports.load = (req, res, next, userId) => {
+	const options = {
+		include: [
+			models.Rental,
+		],
+	};
+	models.User.findByPk(userId, options)
+		.then((user) => {
+			if (user) {
+				req.user = user;
+				req.owner = user;
+				next();
+			} else {
+				next(new NotFoundError());
+			}
+		})
+		.catch((error) => next(error));
+};
 
 exports.create = (req, res, next) => {
 	// Not logged in the CAS
@@ -30,4 +49,29 @@ exports.create = (req, res, next) => {
 			return rawUser;
 		})
 		.then((user) => res.json(user));
+};
+
+exports.update = (req, res, next) => {
+	const { body, user } = req;
+	const fields = [];
+	const allowedFields = ['name', 'phone', 'dni'];
+
+	allowedFields.forEach((field) => {
+		if (Object.prototype.hasOwnProperty.call(body, field)
+			&& body[field] !== user[field]) {
+			user[field] = body[field];
+			fields.push(field);
+		}
+	});
+	// Check if there is at least one field to update
+	if (fields.length === 0) {
+		throw new BadRequestError('Debes modificar al menos un campo para actualizar tu perfil');
+	}
+
+	return user.save({ fields })
+		.then((updatedUser) => {
+			req.result = updatedUser;
+		})
+		.then(() => next())
+		.catch((error) => next(error));
 };
