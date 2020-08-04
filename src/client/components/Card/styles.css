@@ -1,0 +1,101 @@
+.card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px;
+  border: 10px black solid;
+  padding: 10px;
+  border-bottom: black solid;
+  border-right: black solid;
+  flex-wrap: wrap;
+}
+
+.cardInfo {
+  flex-grow: 100000000;
+  flex-basis: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 40px;
+}
+
+.cardTitle {
+  font-weight: bold;
+  font-size: 1.5em;
+  font-style: italic;
+}
+
+.cardContentData {
+  align-self: flex-end;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+.cardActions {
+  display: flex;
+  flex-grow: 1;
+  min-width: fit-content;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.animateWidth {
+  max-width: 100000px;
+  transition: max-width 10s linear;
+}
+
+.cardActions > button {
+  margin: 5px;
+  border: none;
+  padding: 5px 20px;
+  font-family: 'Mukta Malar', sans-serif;
+  font-weight: 700;
+  border-radius: 3px;
+  color: white;
+  font-style: italic;
+  font-size: 1.1em;
+  transition: box-shadow 0.3s;
+  transition-property: box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardActions > button:hover {
+  opacity: 0.9;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.cardActions > button:focus {
+  outline: none;
+}
+
+.orangeGradient {
+  background: -webkit--webkit-linear-gradient(65deg, rgb(246, 85, 85) 0%, rgb(245, 85, 86) 0%, rgb(252, 207, 49) 100%);
+  background: -webkit-linear-gradient(65deg, rgb(246, 85, 85) 0%, rgb(245, 85, 86) 0%, rgb(252, 207, 49) 100%);
+}
+
+.blueGradient {
+  background: -webkit--webkit-linear-gradient(65deg, rgb(87, 25, 208) 0%, rgb(11, 204, 238) 100%);
+  background: -webkit-linear-gradient(65deg, rgb(87, 25, 208) 0%, rgb(11, 204, 238) 100%);
+}
+
+.purpleGradient {
+  background: -webkit-linear-gradient(65deg, rgb(143, 28, 211) 0%, rgb(216, 0, 167) 100%);
+  background: linear-gradient(65deg, rgb(143, 28, 211) 0%, rgb(216, 0, 167) 100%);
+}
+
+.greyGradient {
+  background: -webkit-linear-gradient(65deg, rgb(74, 77, 103) 0%, rgb(119, 125, 165) 100%);
+  background: linear-gradient(65deg, rgb(74, 77, 103) 0%, rgb(119, 125, 165) 100%);
+}
+
+.greenGradient {
+  background: -webkit-linear-gradient(65deg, rgb(10, 90, 0) 0%, rgb(0, 239, 40) 100%);
+  background: linear-gradient(65deg, rgb(10, 90, 0) 0%, rgb(0, 239, 40) 100%);
+}
