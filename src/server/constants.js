@@ -1,10 +1,9 @@
 exports.RentalStates = {
 	REQUESTED: 1,
-	RESERVED: 2,
-	RENTED: 3,
-	CLAIMED: 4,
-	RENEW_REQUESTED: 5,
-	RETURNED: 6,
+	RENTED: 2,
+	CLAIMED: 3,
+	RENEW_REQUESTED: 4,
+	RETURNED: 5,
 };
 
 exports.LockerStates = {
