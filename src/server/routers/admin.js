@@ -173,14 +173,6 @@ router.delete(
 // Routes for actions
 
 router.post(
-	'/request/:rentalId(\\d+)/accept',
-	rental.acceptRequest,
-);
-router.post(
-	'/request/:rentalId(\\d+)/deny',
-	rental.denyRequest,
-);
-router.post(
 	'/rental/:rentalId(\\d+)/start',
 	rental.startRental,
 );

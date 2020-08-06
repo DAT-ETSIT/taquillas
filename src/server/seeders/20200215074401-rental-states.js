@@ -5,14 +5,7 @@ module.exports = {
 		{
 			id: RentalStates.REQUESTED,
 			name: 'Requested',
-			description: 'The user has requested a locker. Petition pending approval by administrators.',
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		},
-		{
-			id: RentalStates.RESERVED,
-			name: 'Reserved',
-			description: 'The administration has approved the request. The user has to pay the deposit and the price of the locker.',
+			description: 'The user has requested a locker. The user has to pay the deposit and the price of the locker.',
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		},

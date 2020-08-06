@@ -48,30 +48,11 @@ exports.create = (req, res, next) => {
 	next();
 };
 
-exports.acceptRequest = (req, res, next) => {
-	if (req.entity.rentalStateId !== RentalStates.REQUESTED) {
-		return next(new BadRequestError('No se puede aceptar una solicitud de un alquiler que no se encuentre en estado "Solicitado"'));
-	}
-	return req.entity.update({ rentalStateId: RentalStates.RESERVED })
-		.then((rental) => rental.reload())
-		.then((rental) => res.json(rental));
-};
-
-exports.denyRequest = (req, res, next) => {
-	if (req.entity.rentalStateId !== RentalStates.REQUESTED) {
-		return next(new BadRequestError('No puedes denegar una solicitud de un alquiler que no se encuentre en estado "Solicitado"'));
-	}
-	return req.entity.Locker.update({ lockerStateId: LockerStates.AVAILABLE })
-		.then(() => req.entity.update({ rentalStateId: RentalStates.RETURNED }))
-		.then((rental) => rental.reload())
-		.then((rental) => res.json(rental));
-};
-
 exports.startRental = (req, res, next) => {
-	if (req.entity.rentalStateId !== RentalStates.RESERVED) {
-		return next(new BadRequestError('No puedes iniciar un alquiler que no haya sido previamente aceptado por un administrador'));
+	if (req.entity.rentalStateId !== RentalStates.REQUESTED) {
+		return next(new BadRequestError('No puedes iniciar un alquiler que no haya sido solicitado previamente'));
 	}
-	if (req.entity.Locker.lockerStateId !== LockerStates.RESERVED) {
+	if (req.entity.Locker.lockerStateId !== LockerStates.REQUESTED) {
 		return next(new BadRequestError('No puedes iniciar un alquiler con una taquilla que no se encuentre reservada previamente'));
 	}
 	const includesDeposit = parseInt(req.body.includesDeposit, 10) === 1;
@@ -124,7 +105,7 @@ exports.acceptRenew = (req, res, next) => {
 		return next(new BadRequestError('No se puede aceptar la renovación de un alquiler que no haya solicitado previamente dicha renovación'));
 	}
 	return req.entity.Locker.update({ lockerStateId: LockerStates.RESERVED })
-		.then(() => req.entity.update({ rentalStateId: RentalStates.RESERVED }))
+		.then(() => req.entity.update({ rentalStateId: RentalStates.REQUESTED }))
 		.then((rental) => rental.reload())
 		.then((rental) => res.json(rental));
 };
