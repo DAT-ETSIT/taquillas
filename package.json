@@ -48,6 +48,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "got": "^11.1.4",
+    "material-table": "^1.68.0",
     "morgan": "^1.9.1",
     "mysql2": "^2.1.0",
     "promise-mysql": "^3.3.1",
