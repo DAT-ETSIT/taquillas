@@ -139,7 +139,7 @@ exports.loginRequired = (req, res, next) => {
 };
 
 exports.adminRequired = (req, res, next) => {
-	const isAdmin = req.session.user.isAdmin === true;
+	const isAdmin = req.session.user.isAdmin === 1;
 	if (!isAdmin) next(new LimitedUserError());
 	next();
 };
@@ -151,7 +151,7 @@ exports.myselfRequired = (req, res, next) => {
 };
 
 exports.adminOrMyselfRequired = (req, res, next) => {
-	const isAdmin = req.session.user.isAdmin === true;
+	const isAdmin = req.session.user.isAdmin === 1;
 	const isMyself = req.owner.id === req.session.user.id;
 	if (!isMyself && !isAdmin) next(new LimitedUserError());
 	next();
