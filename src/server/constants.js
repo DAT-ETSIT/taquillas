@@ -2,7 +2,7 @@ exports.RentalStates = {
 	REQUESTED: 1,
 	RENTED: 2,
 	CLAIMED: 3,
-	RENEW_REQUESTED: 4,
+	RENEWAL_REQUESTED: 4,
 	RETURNED: 5,
 };
 

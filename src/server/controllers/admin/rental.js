@@ -100,8 +100,8 @@ exports.claimRental = (req, res, next) => {
 		.then((rental) => res.json(rental));
 };
 
-exports.acceptRenew = (req, res, next) => {
-	if (req.entity.rentalStateId !== RentalStates.RENEW_REQUESTED) {
+exports.acceptRenewal = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.RENEWAL_REQUESTED) {
 		return next(new BadRequestError('No se puede aceptar la renovación de un alquiler que no haya solicitado previamente dicha renovación'));
 	}
 	return req.entity.Locker.update({ lockerStateId: LockerStates.RESERVED })
@@ -110,8 +110,8 @@ exports.acceptRenew = (req, res, next) => {
 		.then((rental) => res.json(rental));
 };
 
-exports.denyRenew = (req, res, next) => {
-	if (req.entity.rentalStateId !== RentalStates.RENEW_REQUESTED) {
+exports.denyRenewal = (req, res, next) => {
+	if (req.entity.rentalStateId !== RentalStates.RENEWAL_REQUESTED) {
 		return next(new BadRequestError('No puedes rechazar la renovación de un alquiler que no haya solicitado previamente dicha renovación'));
 	}
 	return req.entity.update({ rentalStateId: RentalStates.CLAIMED })

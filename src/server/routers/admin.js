@@ -181,12 +181,12 @@ router.post(
 	rental.claimRental,
 );
 router.post(
-	'/request/:rentalId(\\d+)/renew/accept',
-	rental.acceptRenew,
+	'/request/:rentalId(\\d+)/renewal/accept',
+	rental.acceptRenewal,
 );
 router.post(
-	'/request/:rentalId(\\d+)/renew/deny',
-	rental.denyRenew,
+	'/request/:rentalId(\\d+)/renewal/deny',
+	rental.denyRenewal,
 );
 router.post(
 	'/rental/:rentalId(\\d+)/end',

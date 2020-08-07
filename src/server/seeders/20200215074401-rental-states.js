@@ -24,8 +24,8 @@ module.exports = {
 			updatedAt: new Date(),
 		},
 		{
-			id: RentalStates.RENEW_REQUESTED,
-			name: 'Renew requested',
+			id: RentalStates.RENEWAL_REQUESTED,
+			name: 'Renewal requested',
 			description: 'The user has requested the renewal of the rental.',
 			createdAt: new Date(),
 			updatedAt: new Date(),
