@@ -68,3 +68,18 @@ export const fetchPost = (url, body = {}) => fetch(
 		},
 	},
 ).then(ajaxErrHandler);
+
+/**
+ * Send a PUT request to the desired URL, with the body as a JSON-encoded
+ * content.
+ */
+export const fetchPut = (url, body) => fetch(
+	url,
+	{
+		method: 'PUT',
+		body: JSON.stringify(body),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	},
+).then(ajaxErrHandler);
