@@ -10,6 +10,7 @@ import ErrorView from './ErrorView';
 import SignUp from './SignUp/SignUp';
 import Catalog from './Catalog/Catalog';
 import Profile from './Profile/Profile';
+import Locations from './Locations';
 import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
 import LogOut from './LogOut';
@@ -19,7 +20,7 @@ const AppRouter = () => {
 	const session = useSelector((state) => state.session);
 	const adminRoutes = (
 		<Fragment key="adminRoutes">
-			<Route exact path="/admin/locations" component={TestView} />
+			<Route exact path="/admin/locations" component={Locations} />
 			<Route exact path="/admin/payments" component={TestView} />
 			<Route exact path="/admin/lockers" component={TestView} />
 			<Route exact path="/admin/users" component={TestView} />
