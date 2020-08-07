@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import getAvailableLocations from '../../utils/api/locations';
+import { getAvailableLocations } from '../../utils/api/locations';
 import Card from '../../components/Card/Card';
 import RequestLocker from '../../components/forms/RequestLocker';
 import './styles.css';
