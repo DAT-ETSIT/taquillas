@@ -1,35 +1,38 @@
+class RequestError extends Error {
+	constructor(statusCode, codeName, message = 'Bad request') {
+		super(message);
+		this.statusCode = statusCode;
+		this.codeName = codeName;
+	}
+}
 /**
  * Error handler specifically designed for AJAX requests made to the backend's
  * REST API.
  */
-export function ajaxErrHandler(res) {
+export const ajaxErrHandler = (res) => {
 	// Redirect to the Central Authentication System (CAS) login page if the
 	// request was unauthorized.
 	if (res.status === 401) {
-		return res.json()
-			.then((errDetails) => {
-				// Compose the backend URL that should handle the redirect after
-				// a successful login (/login?redirect={window.location.href}).
-				const callbackUrl = new URL('/login', errDetails.serviceBase);
-				callbackUrl.searchParams.set('redirect', window.location.href);
-
-				// Insert the callback URL as the service.
-				const ssoRedirectUrl = new URL(errDetails.ssoUrl);
-				ssoRedirectUrl.searchParams.set('service', callbackUrl.href);
-				window.location.href = ssoRedirectUrl.href;
-				return null;
-			});
+		window.location.href = `/api/v1/app/login?redirect=${window.location.pathname}`;
+		return {};
 	}
 
-	// Redirect to the generic error view on 404s and 500s.
-	if (res.status === 404 || res.status === 500) {
-		window.location.href = `/${res.status}`;
-		return null;
+	// Throw RequestError if something goes wrong with the request
+	if (res.status >= 400) {
+		return res.json().then((response) => {
+			if ('error' in response && 'message' in response) {
+				throw new RequestError(res.status, response.error, response.message);
+			} else {
+				// Log unexpected response.
+				console.log(response);
+				throw new RequestError(res.status, 'bad_request', 'Error procesando su solicitud');
+			}
+		});
 	}
 
 	// Continue with the promise chain otherwise.
 	return res;
-}
+};
 
 /**
  * Send a GET request to the desired URL.
