@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import AdminNav from '../AdminNav/AdminNav';
 import Message from '../Message/Message';
+import { getSession } from '../../utils/api/app/session';
 import './styles.css';
 
 function Layout(props) {
 	const { children } = props;
 	const location = useLocation();
+
+	useEffect(() => {
+		getSession();
+	}, [location.pathname]);
 
 	return (
 		<main id="main">
