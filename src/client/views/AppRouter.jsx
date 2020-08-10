@@ -45,6 +45,7 @@ const AppRouter = () => {
 	const defaultSwitch = (
 		<Switch>
 			<Route exact path="/" component={Welcome} />
+			<Route exact path="/login" component={Welcome} />
 			<Route exact path="/signup" component={SignUp} />
 			<Route path="/500" render={(props) => <ErrorView {...props} code={500} />} />
 			<Route render={() => <EndSession />} />
