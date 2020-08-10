@@ -1,9 +1,12 @@
-import React from 'react';
-import { useLocation, Redirect } from 'react-router-dom';
+import React, { useEffect, Fragment } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const EndSession = () => {
 	const location = useLocation();
-	return (<Redirect to={`/?redirect=${location.pathname}`} />);
+	useEffect(() => {
+		window.location.href = `/api/v1/app/login?redirect=${location.pathname}`;
+	}, []);
+	return (<Fragment key="empty" />);
 };
 
 export default EndSession;
