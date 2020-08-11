@@ -5,7 +5,7 @@
   "main": "src/server/server.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "yarn run build && NODE_ENV=production node src/server/server.js",
+    "start": "yarn run build && node src/server/server.js",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
     "server": "nodemon --ignore dist/ --ignore src/client",
