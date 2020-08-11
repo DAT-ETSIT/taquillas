@@ -54,9 +54,9 @@ router.post(
 );
 
 router.post(
-	'/request/renew/:rentalId(\\d+)',
+	'/request/renewal/:rentalId(\\d+)',
 	session.adminOrMyselfRequired,
-	rental.requestRenew,
+	rental.requestRenewal,
 	session.updateUser,
 	defaultController.sendResult,
 );
