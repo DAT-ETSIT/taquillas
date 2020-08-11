@@ -73,7 +73,7 @@ const rentalState = {
 		[RentalStates.REQUESTED]: 'Solicitud enviada',
 		[RentalStates.RENTED]: 'Alquiler en curso',
 		[RentalStates.CLAIMED]: 'Alquiler expirado, llaves pendientes de devolución',
-		[RentalStates.RENEW_REQUESTED]: 'Renovación solicitada',
+		[RentalStates.RENEWAL_REQUESTED]: 'Renovación solicitada',
 		[RentalStates.RETURNED]: 'Alquiler finalizado',
 
 	},
