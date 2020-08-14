@@ -1,15 +1,29 @@
-const models = require('../../models');
+const models = require('../models');
+const { NotFoundError } = require('../errors');
 
 exports.model = models.Payment;
-exports.loadOptions = {
-	include: [
-		models.PaymentMethod,
-		models.User,
-		{
-			model: models.Rental,
-			include: [models.Locker],
-		},
-	],
+
+exports.load = (req, res, next, paymentId) => {
+	const options = {
+		include: [
+			models.PaymentMethod,
+			models.User,
+			{
+				model: models.Rental,
+				include: [models.Locker],
+			},
+		],
+	};
+	return models.Payment.findByPk(paymentId, options)
+		.then((payment) => {
+			if (payment) {
+				req.entity = payment;
+				req.payment = payment;
+				return next();
+			}
+			throw new NotFoundError();
+		})
+		.catch((error) => next(error));
 };
 
 exports.index = (req, res, next) => {

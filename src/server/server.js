@@ -6,13 +6,13 @@ const morgan = require('morgan');
 const path = require('path');
 const sequelize = require('./models');
 const router = require('./router');
-const adminRouter = require('./routers/admin');
 const appRouter = require('./routers/app');
 const locationsRouter = require('./routers/locations');
 const lockersRouter = require('./routers/lockers');
 const usersRouter = require('./routers/users');
 const rentalsRouter = require('./routers/rentals');
 const paymentMethodsRouter = require('./routers/paymentMethods');
+const paymentsRouter = require('./routers/payments');
 const config = require('./config/server.json')[env];
 const { globalErrorHandler, NotFoundError } = require('./errors');
 
@@ -50,12 +50,12 @@ app.use(session({
 }));
 // Main API router.
 app.use('/api/v1/app', appRouter);
-app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/locations', locationsRouter);
 app.use('/api/v1/lockers', lockersRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/rentals', rentalsRouter);
 app.use('/api/v1/paymentMethods', paymentMethodsRouter);
+app.use('/api/v1/payments', paymentsRouter);
 app.use('/api/v1', router);
 app.use('/api/v1/*', () => {
 	throw new NotFoundError();
