@@ -1,6 +1,5 @@
 const express = require('express');
 const defaultController = require('../controllers/defaultController');
-const locker = require('../controllers/admin/locker');
 const user = require('../controllers/admin/user');
 const payment = require('../controllers/admin/payment');
 const paymentMethod = require('../controllers/admin/paymentMethod');
@@ -12,32 +11,6 @@ const router = express.Router();
 // All users require a logged user with administrator permissions.
 router.use(session.loginRequired, session.adminRequired);
 
-// Autoload for routes using :param
-router.param(
-	'lockerId',
-	defaultController.load(locker.model, locker.loadOptions),
-);
-// Routes for the model locker
-router.get(
-	'/lockers',
-	locker.index, defaultController.index,
-);
-router.get(
-	'/locker/:lockerId(\\d+)',
-	defaultController.show,
-);
-router.post(
-	'/locker',
-	locker.create, defaultController.create,
-);
-router.put(
-	'/locker/:lockerId(\\d+)',
-	locker.update, defaultController.update,
-);
-router.delete(
-	'/locker/:lockerId(\\d+)',
-	defaultController.destroy,
-);
 // Autoload for routes using :param
 router.param(
 	'paymentMethodId',

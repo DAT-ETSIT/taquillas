@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('../controllers/app/session');
 const user = require('../controllers/app/user');
 const location = require('../controllers/location');
-const locker = require('../controllers/app/locker');
+const locker = require('../controllers/locker');
 const rental = require('../controllers/app/rental');
 const defaultController = require('../controllers/defaultController');
 

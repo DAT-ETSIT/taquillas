@@ -1,18 +1,9 @@
 const { Op } = require('sequelize');
-const models = require('../../models');
-const { RentalStates } = require('../../constants');
+const models = require('../models');
+const { RentalStates } = require('../constants');
+const { NotFoundError } = require('../errors');
 
 exports.model = models.Locker;
-exports.loadOptions = {
-	include: [
-		models.Location,
-		models.LockerState,
-		{
-			model: models.Rental,
-			include: [models.User],
-		},
-	],
-};
 
 exports.index = (req, res, next) => {
 	req.options = {
@@ -45,4 +36,17 @@ exports.create = (req, res, next) => {
 		},
 	);
 	next();
+};
+
+exports.load = (req, res, next, lockerId) => {
+	models.Locker.findByPk(lockerId)
+		.then((locker) => {
+			if (locker) {
+				req.locker = locker;
+				req.entity = locker;
+				return next();
+			}
+			throw new NotFoundError();
+		})
+		.catch((error) => next(error));
 };
