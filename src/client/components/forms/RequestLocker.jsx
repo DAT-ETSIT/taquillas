@@ -10,7 +10,7 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useHistory } from 'react-router-dom';
-import { getSession } from '../../utils/api/app/session';
+import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';
 import store from '../../redux/store';
 import requestLocker from '../../utils/api/rentals';

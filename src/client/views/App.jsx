@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getSession } from '../utils/api/app/session';
+import { getSession } from '../utils/api/session';
 import AppRouter from './AppRouter';
 
 const App = () => {

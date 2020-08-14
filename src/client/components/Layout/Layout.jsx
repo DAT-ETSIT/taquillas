@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import AdminNav from '../AdminNav/AdminNav';
 import Message from '../Message/Message';
-import { getSession } from '../../utils/api/app/session';
+import { getSession } from '../../utils/api/session';
 import './styles.css';
 
 function Layout(props) {

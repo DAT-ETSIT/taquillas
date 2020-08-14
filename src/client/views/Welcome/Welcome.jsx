@@ -12,7 +12,7 @@ const Welcome = () => {
 			<div className="welcomeLogo">
 				<img src={Logo} alt="Taquillas" /> Taquillas
 			</div>
-			<a href={`/api/v1/app/login?redirect=${redirect || '/'}`}>
+			<a href={`/api/v1/session/login?redirect=${redirect || '/'}`}>
 				<div className="loginButton">Iniciar Sesión</div>
 			</a>
 		</div>
