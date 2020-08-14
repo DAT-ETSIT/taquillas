@@ -3,15 +3,15 @@ const { Op } = require('sequelize');
 const got = require('got');
 const xml2js = require('xml2js');
 const xmlProcessors = require('xml2js/lib/processors');
-const { UnauthorizedError, LimitedUserError } = require('../../errors');
-const { RentalStates } = require('../../constants');
-const config = require('../../config/server.json')[env];
-const models = require('../../models');
+const { UnauthorizedError, LimitedUserError } = require('../errors');
+const { RentalStates } = require('../constants');
+const config = require('../config/server.json')[env];
+const models = require('../models');
 
 const login = (req, res) => {
 	// Compose the backend URL that should handle the redirect after
 	// a successful login (/login?redirect={window.location.href}).
-	const callbackUrl = new URL(`${config.url}/api/v1/app/session/new`);
+	const callbackUrl = new URL(`${config.url}/api/v1/session/new`);
 	req.query.redirect = req.query.redirect || '/';
 	callbackUrl.searchParams.set('redirect', req.query.redirect);
 

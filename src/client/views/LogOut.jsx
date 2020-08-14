@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { logOut } from '../utils/api/app/session';
+import { logOut } from '../utils/api/session';
 
 const LogOut = () => {
 	useEffect(() => {

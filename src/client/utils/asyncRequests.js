@@ -13,7 +13,7 @@ export const ajaxErrHandler = (res) => {
 	// Redirect to the Central Authentication System (CAS) login page if the
 	// request was unauthorized.
 	if (res.status === 401) {
-		window.location.href = `/api/v1/app/login?redirect=${window.location.pathname}`;
+		window.location.href = `/api/v1/session/login?redirect=${window.location.pathname}`;
 		return {};
 	}
 

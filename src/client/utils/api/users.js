@@ -1,5 +1,5 @@
 import { fetchPost } from '../asyncRequests';
-import { getSession } from './app/session';
+import { getSession } from './session';
 
 export const createUser = (newUser) => fetchPost('/api/v1/users/signup', newUser)
 	.then((r) => r.json())

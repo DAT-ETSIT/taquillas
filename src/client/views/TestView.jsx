@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import doPing from '../utils/api/pong';
-import { logOut } from '../utils/api/app/session';
+import { logOut } from '../utils/api/session';
 
 
 const TestView = () => {
