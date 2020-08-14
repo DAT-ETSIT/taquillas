@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { updateUser } from '../../utils/api/app/users';
+import { updateUser } from '../../utils/api/users';
 import { getSession } from '../../utils/api/app/session';
 import { addRequestError } from '../../redux/actions/messages';
 import store from '../../redux/store';

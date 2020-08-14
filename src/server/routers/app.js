@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('../controllers/app/session');
-const user = require('../controllers/app/user');
+const user = require('../controllers/user');
 const location = require('../controllers/location');
 const locker = require('../controllers/locker');
 const rental = require('../controllers/app/rental');
@@ -15,7 +15,7 @@ router.get('/session/new', session.casLogin, session.create);
 router.delete('/session', session.destroy);
 
 // Create user endpoint
-router.post('/user', user.create);
+router.post('/user', user.signUp);
 
 // The following routes require the user to be logged in.
 router.use(session.loginRequired);
@@ -25,7 +25,7 @@ router.param('userId', user.load);
 router.post(
 	'/user/:userId(\\d+)',
 	session.adminOrMyselfRequired,
-	user.update,
+	user.editProfile,
 	session.updateUser,
 	defaultController.sendResult,
 );

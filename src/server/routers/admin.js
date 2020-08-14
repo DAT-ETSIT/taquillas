@@ -1,6 +1,5 @@
 const express = require('express');
 const defaultController = require('../controllers/defaultController');
-const user = require('../controllers/admin/user');
 const payment = require('../controllers/admin/payment');
 const paymentMethod = require('../controllers/admin/paymentMethod');
 const rental = require('../controllers/admin/rental');
@@ -35,27 +34,6 @@ router.put(
 );
 router.delete(
 	'/paymentMethod/:paymentMethodId(\\d+)',
-	defaultController.destroy,
-);
-// Routes for the model user
-router.get(
-	'/users',
-	user.index, defaultController.index,
-);
-router.get(
-	'/user/:userId(\\d+)',
-	defaultController.show,
-);
-router.post(
-	'/user',
-	user.create, defaultController.create,
-);
-router.put(
-	'/user/:userId(\\d+)',
-	user.update, defaultController.update,
-);
-router.delete(
-	'/user/:userId(\\d+)',
 	defaultController.destroy,
 );
 

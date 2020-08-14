@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logOut } from '../../utils/api/app/session';
-import { createUser } from '../../utils/api/app/users';
+import { createUser } from '../../utils/api/users';
 import './styles.css';
 
 const SignUpForm = () => {

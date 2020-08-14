@@ -1,10 +1,21 @@
-const models = require('../../models');
-const { BadRequestError, NotFoundError } = require('../../errors');
+const { Op } = require('sequelize');
+const models = require('../models');
+const { BadRequestError, NotFoundError } = require('../errors');
+const { RentalStates } = require('../constants');
+
+exports.model = models.User;
 
 exports.load = (req, res, next, userId) => {
 	const options = {
 		include: [
-			models.Rental,
+			{
+				model: models.Rental,
+				include: [models.Locker],
+			},
+			{
+				model: models.Payment,
+				include: [models.Rental],
+			},
 		],
 	};
 	models.User.findByPk(userId, options)
@@ -12,15 +23,15 @@ exports.load = (req, res, next, userId) => {
 			if (user) {
 				req.user = user;
 				req.owner = user;
-				next();
-			} else {
-				next(new NotFoundError());
+				req.entity = user;
+				return next();
 			}
+			return next(new NotFoundError());
 		})
 		.catch((error) => next(error));
 };
 
-exports.create = (req, res, next) => {
+exports.signUp = (req, res, next) => {
 	// Not logged in the CAS
 	if (!req.session.email || !req.session.name) {
 		return next(new BadRequestError());
@@ -51,7 +62,7 @@ exports.create = (req, res, next) => {
 		.then((user) => res.json(user));
 };
 
-exports.update = (req, res, next) => {
+exports.editProfile = (req, res, next) => {
 	const { body, user } = req;
 	const fields = [];
 	const allowedFields = ['name', 'phone', 'dni'];
@@ -74,4 +85,37 @@ exports.update = (req, res, next) => {
 		})
 		.then(() => next())
 		.catch((error) => next(error));
+};
+
+exports.index = (req, res, next) => {
+	req.options = {
+		include: [
+			{
+				model: models.Rental,
+				where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED } },
+				required: false,
+				include: [models.Locker],
+			},
+		],
+	};
+	req.model = models.User;
+	next();
+};
+
+exports.update = (req, res, next) => {
+	req.allowedFields = ['name', 'phone', 'dni', 'isAdmin', 'email'];
+	next();
+};
+
+exports.create = (req, res, next) => {
+	req.entity = models.User.build(
+		{
+			name: req.body.name,
+			phone: req.body.phone || null,
+			dni: req.body.dni || null,
+			email: req.body.email,
+			isAdmin: false,
+		},
+	);
+	next();
 };
