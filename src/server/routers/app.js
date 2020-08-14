@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('../controllers/app/session');
 const user = require('../controllers/app/user');
-const location = require('../controllers/app/location');
+const location = require('../controllers/location');
 const locker = require('../controllers/app/locker');
 const rental = require('../controllers/app/rental');
 const defaultController = require('../controllers/defaultController');
@@ -32,7 +32,7 @@ router.post(
 
 // Locations
 router.param('locationId', location.load);
-router.get('/locations', location.index, defaultController.index);
+router.get('/locations/available', location.available, defaultController.index);
 
 // Lockers
 router.param('lockerId', locker.load);
