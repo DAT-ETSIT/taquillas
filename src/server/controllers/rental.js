@@ -1,18 +1,97 @@
-const models = require('../../models');
-const { RentalStates, LockerStates } = require('../../constants');
-const { BadRequestError } = require('../../errors');
+const models = require('../models');
+const { LockerStates, RentalStates, MAX_RENTALS } = require('../constants');
+const { NotFoundError, BadRequestError, LimitedUserError } = require('../errors');
 
 exports.model = models.Rental;
-exports.loadOptions = {
-	include: [
-		models.RentalState,
-		models.User,
-		models.Payment,
-		{
-			model: models.Locker,
-			include: [models.Location],
+
+exports.load = (req, res, next, rentalId) => {
+	const options = {
+		include: [
+			models.RentalState,
+			models.User,
+			models.Payment,
+			{
+				model: models.Locker,
+				include: [models.Location],
+			},
+		],
+	};
+	models.Rental.findByPk(rentalId, options)
+		.then((rental) => {
+			if (rental) {
+				req.rental = rental;
+				req.entity = rental;
+				req.owner = rental.User;
+				next();
+			} else {
+				next(new NotFoundError());
+			}
+		})
+		.catch((error) => next(error));
+};
+
+exports.requestLocker = (req, res, next) => {
+	// If locker not available
+	if (req.locker.lockerStateId !== LockerStates.AVAILABLE) {
+		return next(new BadRequestError('La taquilla solicitada no se encuentra disponible'));
+	}
+	// If user with more than 5 active rentals
+	if (req.session.user.Rentals && req.session.user.Rentals.length >= MAX_RENTALS) {
+		return next(new LimitedUserError(`No puedes tener mas de ${MAX_RENTALS} alquileres activos`));
+	}
+	// req.locker.lockerStateId = LockerStates.RESERVED;
+	return req.locker.update({ lockerStateId: LockerStates.RESERVED })
+		.then((locker) => models.Rental.create(
+			{
+				expirationDate: Date.now(), // Deprecated?
+				deposit: 0,
+				userId: req.session.user.id,
+				lockerId: locker.id,
+				rentalStateId: RentalStates.REQUESTED,
+			},
+		)).then((rental) => {
+			req.result = rental;
+			next();
+		});
+};
+
+exports.requestRandomLocker = (req, res, next) => {
+	// If user with more than x active rentals
+	if (req.session.user.Rentals && req.session.user.Rentals.length >= MAX_RENTALS) {
+		return next(new LimitedUserError(`No puedes tener mas de ${MAX_RENTALS} alquileres activos`));
+	}
+	const options = {
+		where: {
+			locationId: req.location.id,
+			lockerStateId: LockerStates.AVAILABLE,
 		},
-	],
+	};
+
+	return models.Locker.findOne(options)
+		.then((locker) => locker.update({ lockerStateId: LockerStates.RESERVED }))
+		.then((locker) => models.Rental.create(
+			{
+				expirationDate: Date.now(), // Deprecated?
+				deposit: 0,
+				userId: req.session.user.id,
+				lockerId: locker.id,
+				rentalStateId: RentalStates.REQUESTED,
+			},
+		)).then((rental) => {
+			req.result = rental;
+			return next();
+		});
+};
+
+exports.requestRenewal = (req, res, next) => {
+	if (req.rental.rentalStateId !== RentalStates.CLAIMED) {
+		return next(new BadRequestError('No puedes pedir renovación de esta taquilla'));
+	}
+	return req.rental.update({ rentalStateId: RentalStates.RENEWAL_REQUESTED })
+		.then((rental) => {
+			req.result = rental;
+			return next();
+		});
 };
 
 exports.index = (req, res, next) => {

@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import { getSession } from '../../utils/api/app/session';
 import { addRequestError } from '../../redux/actions/messages';
 import store from '../../redux/store';
-import requestLocker from '../../utils/api/app/rentals';
+import requestLocker from '../../utils/api/rentals';
 // import './styles.css';
 
 const { dispatch } = store;
