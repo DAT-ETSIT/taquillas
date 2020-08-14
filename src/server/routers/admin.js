@@ -1,6 +1,5 @@
 const express = require('express');
 const defaultController = require('../controllers/defaultController');
-const location = require('../controllers/admin/location');
 const locker = require('../controllers/admin/locker');
 const user = require('../controllers/admin/user');
 const payment = require('../controllers/admin/payment');
@@ -12,33 +11,6 @@ const router = express.Router();
 
 // All users require a logged user with administrator permissions.
 router.use(session.loginRequired, session.adminRequired);
-// Autoload for routes using :param
-router.param(
-	'locationId',
-	defaultController.load(location.model, location.loadOptions),
-);
-
-// Routes for the model Location
-router.get(
-	'/locations',
-	location.setDefaults, defaultController.index,
-);
-router.get(
-	'/location/:locationId(\\d+)',
-	defaultController.show,
-);
-router.post(
-	'/location',
-	location.create, defaultController.create,
-);
-router.put(
-	'/location/:locationId(\\d+)',
-	location.update, defaultController.update,
-);
-router.delete(
-	'/location/:locationId(\\d+)',
-	location.setDefaults, defaultController.destroy,
-);
 
 // Autoload for routes using :param
 router.param(

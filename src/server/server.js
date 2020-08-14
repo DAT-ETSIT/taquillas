@@ -8,6 +8,7 @@ const sequelize = require('./models');
 const router = require('./router');
 const adminRouter = require('./routers/admin');
 const appRouter = require('./routers/app');
+const locationsRouter = require('./routers/locations');
 const config = require('./config/server.json')[env];
 const { globalErrorHandler, NotFoundError } = require('./errors');
 
@@ -46,6 +47,7 @@ app.use(session({
 // Main API router.
 app.use('/api/v1/app', appRouter);
 app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/locations', locationsRouter);
 app.use('/api/v1', router);
 app.use('/api/v1/*', () => {
 	throw new NotFoundError();
