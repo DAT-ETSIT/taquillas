@@ -12,6 +12,7 @@ import Catalog from './Catalog/Catalog';
 import Profile from './Profile/Profile';
 import Locations from './Locations';
 import Lockers from './Lockers';
+import Payments from './Payments';
 import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
 import LogOut from './LogOut';
@@ -21,8 +22,8 @@ const AppRouter = () => {
 	const adminRoutes = (
 		<Fragment key="adminRoutes">
 			<Route exact path="/admin/locations" component={Locations} />
-			<Route exact path="/admin/payments" component={TestView} />
 			<Route exact path="/admin/lockers" component={Lockers} />
+			<Route exact path="/admin/payments" component={Payments} />
 			<Route exact path="/admin/users" component={TestView} />
 			<Route exact path="/admin/rentals" component={TestView} />
 			<Route exact path="/admin/requests" component={TestView} />
