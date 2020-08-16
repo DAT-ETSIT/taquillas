@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { updateUser } from '../../utils/api/users';
+import { updateProfile } from '../../utils/api/users';
 import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';
 import store from '../../redux/store';
@@ -55,7 +55,7 @@ const EditProfile = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		closeForm();
-		updateUser(user.id, userData)
+		updateProfile(user.id, userData)
 			.then(() => getSession())
 			.catch((error) => dispatch(addRequestError(error)));
 	};
