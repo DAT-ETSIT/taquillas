@@ -23,7 +23,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.update = (req, res, next) => {
-	req.allowedFields = ['lockerNumber', 'lockerStateId', 'locaitonId'];
+	req.allowedFields = ['lockerNumber', 'lockerStateId', 'locationId'];
 	next();
 };
 
