@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logOut } from '../../utils/api/session';
-import { createUser } from '../../utils/api/users';
+import { signUp } from '../../utils/api/users';
 import './styles.css';
 
 const SignUpForm = () => {
@@ -32,7 +32,7 @@ const SignUpForm = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		createUser(data)
+		signUp(data)
 			.then(() => history.push('/'));
 	};
 	return (
