@@ -33,7 +33,7 @@ const Locations = () => {
 	return (
 		<Table
 			data={data}
-			title="Localizaciones"
+			title="Ubicaciones"
 			columns={locationsColumns}
 			create={create}
 			update={update}

@@ -34,7 +34,7 @@ const AdminNav = () => {
 			/>
 			<NavLink
 				location="/admin/locations"
-				text="Localizaciones"
+				text="Ubicaciones"
 				isActive={location.pathname === '/admin/locations'}
 			/>
 		</nav>

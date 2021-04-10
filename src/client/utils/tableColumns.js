@@ -88,7 +88,7 @@ const lockerNumber = {
 };
 const location = {
 	field: 'locationId',
-	title: 'Localización',
+	title: 'Ubicación',
 	width: 200,
 	lookup: {},
 };
@@ -122,7 +122,7 @@ const deposit = {
 
 const lockerLocation = {
 	field: 'Locker.Location.name',
-	title: 'Localización',
+	title: 'Ubicación',
 	editable: 'never',
 };
 
