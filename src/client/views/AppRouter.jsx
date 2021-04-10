@@ -15,7 +15,6 @@ import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
 import LogOut from './LogOut';
 
-
 const AppRouter = () => {
 	const session = useSelector((state) => state.session);
 	const adminRoutes = (

@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const PaymentMethod = sequelize.define('PaymentMethod', {
 		name: DataTypes.STRING,
