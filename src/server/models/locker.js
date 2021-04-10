@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Locker = sequelize.define('Locker', {
 		lockerNumber: DataTypes.INTEGER,

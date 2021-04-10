@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import doPing from '../utils/api/pong';
 import { logOut } from '../utils/api/session';
 
-
 const TestView = () => {
 	const pong = useSelector((state) => state.pong);
 	const session = useSelector((state) => state.session);

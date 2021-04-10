@@ -39,6 +39,5 @@ module.exports = {
 		},
 	]),
 
-
 	down: (queryInterface) => queryInterface.bulkDelete('RentalStates', null, {}),
 };

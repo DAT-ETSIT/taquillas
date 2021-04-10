@@ -32,6 +32,5 @@ module.exports = {
 		},
 	]),
 
-
 	down: (queryInterface) => queryInterface.bulkDelete('LockerStates', null, {}),
 };

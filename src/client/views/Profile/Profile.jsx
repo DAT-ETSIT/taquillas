@@ -3,7 +3,6 @@ import Card from '../../components/Card/Card';
 import EditProfile from '../../components/forms/EditProfile';
 import './styles.css';
 
-
 const Profile = (props) => {
 	const { user } = props;
 	const [isOpen, setIsOpen] = useState(false);

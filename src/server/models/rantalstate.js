@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const RentalState = sequelize.define('RentalState', {
 		id: { type: DataTypes.INTEGER, autoIncrement: false, primaryKey: true },

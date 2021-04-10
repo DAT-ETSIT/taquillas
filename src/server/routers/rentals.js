@@ -35,7 +35,6 @@ router.post(
 	defaultController.sendResult,
 );
 
-
 // Admin Routes
 router.use(session.adminRequired);
 // Routes for the model rental
