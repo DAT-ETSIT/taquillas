@@ -6,3 +6,7 @@
   margin-right: auto;
   margin-left: auto;
 }
+
+.MuiInput-underline::before {
+  border-bottom: 0 !important;
+}
