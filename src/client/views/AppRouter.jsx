@@ -13,6 +13,7 @@ import Profile from './Profile/Profile';
 import Locations from './Locations';
 import Lockers from './Lockers';
 import Payments from './Payments';
+import Rentals from './Rentals';
 import Users from './Users';
 import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
@@ -26,7 +27,7 @@ const AppRouter = () => {
 			<Route exact path="/admin/lockers" component={Lockers} />
 			<Route exact path="/admin/payments" component={Payments} />
 			<Route exact path="/admin/users" component={Users} />
-			<Route exact path="/admin/rentals" component={TestView} />
+			<Route exact path="/admin/rentals" component={Rentals} />
 			<Route exact path="/admin/requests" component={TestView} />
 		</Fragment>
 	);
