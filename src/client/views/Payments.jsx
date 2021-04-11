@@ -35,7 +35,7 @@ const Payments = () => {
 		.then(() => setAllPayments(allPayments.filter((payment) => payment.id !== oldPayment.id)))
 		.catch((error) => dispatch(addRequestError(error)));
 
-	const updatePaymentHangler = (oldPayment, newPayment) => updatePayment(oldPayment, newPayment)
+	const updatePaymentHandler = (oldPayment, newPayment) => updatePayment(oldPayment, newPayment)
 		.then((res) => setAllPayments(
 			allPayments.map((payment) => (payment.id === res.id ? res : payment)),
 		)).catch((error) => dispatch(addRequestError(error)));
@@ -49,7 +49,7 @@ const Payments = () => {
 			allPaymentMethods.filter((paymentMethod) => paymentMethod.id !== oldPaymentMethod.id),
 		)).catch((error) => dispatch(addRequestError(error)));
 
-	const updatePaymentMethodHangler = (oldPaymentMethod, newPaymentMethod) => updatePaymentMethod(
+	const updatePaymentMethodHandler = (oldPaymentMethod, newPaymentMethod) => updatePaymentMethod(
 		oldPaymentMethod, newPaymentMethod,
 	).then((res) => setAllPaymentMethods(
 		allPaymentMethods.map((paymentMethod) => (paymentMethod.id === res.id ? res : paymentMethod)),
@@ -62,7 +62,7 @@ const Payments = () => {
 				title="Métodos de pago"
 				columns={paymentMethodsColumns}
 				create={createPaymentMethodHandler}
-				update={updatePaymentMethodHangler}
+				update={updatePaymentMethodHandler}
 				remove={removePaymentMethodHandler}
 				actions={[]}
 				editable
@@ -75,7 +75,7 @@ const Payments = () => {
 				title="Pagos"
 				columns={paymentsColumns}
 				create={createPaymentHandler}
-				update={updatePaymentHangler}
+				update={updatePaymentHandler}
 				remove={removePaymentHandler}
 				actions={[]}
 				editable
