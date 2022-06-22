@@ -47,7 +47,7 @@
     "connect-session-sequelize": "^6.1.1",
     "express": "^4.16.4",
     "express-session": "^1.17.1",
-    "got": "^11.1.4",
+    "got": "^11.8.5",
     "material-table": "1.69.1",
     "morgan": "^1.9.1",
     "mysql2": "^2.1.0",
