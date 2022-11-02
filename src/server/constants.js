@@ -4,6 +4,7 @@ exports.RentalStates = {
 	CLAIMED: 3,
 	RENEWAL_REQUESTED: 4,
 	RETURNED: 5,
+	DECLINED: 6,
 };
 
 exports.LockerStates = {

@@ -3,11 +3,14 @@ import { getRentalsColumns } from '../utils/tableColumns';
 import { addRequestError } from '../redux/actions/messages';
 import { getAllLockers } from '../utils/api/lockers';
 import { getAllUsers } from '../utils/api/users';
-import { RentalStates } from '../../server/constants';
+import { LockerStates, RentalStates } from '../../server/constants';
 import {
 	getAllRentals, endRental,
-	acceptRenewal, denyRenewal,
+	acceptRenewal, denyRenewal, updateRental,
 } from '../utils/api/rentals';
+import {
+	updateLocker, removeLocker,
+} from '../utils/api/lockers';
 import Table from '../components/Table';
 import store from '../redux/store';
 
@@ -52,6 +55,22 @@ const Requests = () => {
 		.then((res) => setData(
 			data.map((rental) => (rental.id === res.id ? res : rental)),
 		)).catch((error) => dispatch(addRequestError(error)));
+	
+	const declineRental = (oldRental) => endRental(oldRental)
+		.then((res) => setData(
+			data.map((rental) => (rental.id === res.id ? res : rental)),
+		)).catch((error) => dispatch(addRequestError(error)));
+
+	const updateLockers = (oldLocker, newLocker) => updateLocker(oldLocker, newLocker)
+		.then((res) => setData(
+			data.map((locker) => (locker.id === res.id ? res : locker)),
+		)).catch((error) => dispatch(addRequestError(error)));
+	
+	const updateRentals = (oldRental, newRental) => updateRental(oldRental, newRental)
+		.then((res) => setData(
+			data.map((rental) => (rental.id === res.id ? res : rental)),
+		)).catch((error) => dispatch(addRequestError(error)));
+
 
 	return (
 		<div>
@@ -67,13 +86,30 @@ const Requests = () => {
 					{
 						icon: 'euro',
 						tooltip: 'Pagar y comenzar préstamo',
-						onClick: () => alert('TODO: Call start rental endpoint with a payment in the body'),
+						onClick: (event, rental) => {if (confirm("Confirmas el pago de la taquilla " + rental.Locker.lockerNumber + ".") == true) {
+							rental.rentalStateId = RentalStates.RENTED
+							rental.deposit = 5
+							console.log(rental)
+							updateRentals(rental,rental)
+						}
+						},
 						position: 'row',
 					},
 					{
 						icon: 'clear',
 						tooltip: 'Rechazar y terminar préstamo',
-						onClick: (event, rental) => end(rental),
+						onClick: (event, rental) => {if (confirm("Seguro que quiere eliminar esta petición?") == true) {
+							{/*end(rental)*/}
+							{lockers.map((locker) => {
+									if (locker.id == rental.lockerId) {
+										locker.lockerStateId = LockerStates.AVAILABLE
+										updateLockers(locker,locker)
+										end(rental)
+									} 
+								})
+							}
+						}
+						},
 						position: 'row',
 					},
 				]}

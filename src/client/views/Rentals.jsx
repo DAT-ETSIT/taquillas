@@ -3,12 +3,15 @@ import { getRentalsColumns } from '../utils/tableColumns';
 import { addRequestError } from '../redux/actions/messages';
 import { getAllLockers } from '../utils/api/lockers';
 import { getAllUsers } from '../utils/api/users';
-import { RentalStates } from '../../server/constants';
+import { LockerStates, RentalStates } from '../../server/constants';
 import {
 	getAllRentals, createRental,
 	updateRental, removeRental,
 	claimRental, endRental,
 } from '../utils/api/rentals';
+import {
+	updateLocker, removeLocker,
+} from '../utils/api/lockers';
 import Table from '../components/Table';
 import store from '../redux/store';
 
@@ -61,6 +64,11 @@ const Rentals = () => {
 			data.map((rental) => (rental.id === res.id ? res : rental)),
 		)).catch((error) => dispatch(addRequestError(error)));
 
+	const updateLockers = (oldLocker, newLocker) => updateLocker(oldLocker, newLocker)
+		.then((res) => setData(
+			data.map((locker) => (locker.id === res.id ? res : locker)),
+		)).catch((error) => dispatch(addRequestError(error)));
+
 	return (
 		<div>
 			<Table
@@ -75,6 +83,7 @@ const Rentals = () => {
 					icon: 'event_bussy',
 					tooltip: 'Reclamar fin de alquiler',
 					onClick: (event, rental) => claim(rental),
+
 					position: 'row',
 				}]}
 			/>
@@ -90,7 +99,17 @@ const Rentals = () => {
 				actions={[{
 					icon: 'vpn_key',
 					tooltip: 'Finalizar alquiler',
-					onClick: (event, rental) => end(rental),
+					onClick: (event, rental) =>	{
+						lockers.map((locker) => {
+							if (locker.id == rental.lockerId) {
+								locker.lockerStateId = LockerStates.AVAILABLE
+								console.log(locker)
+								console.log(rental)
+								updateLockers(locker,locker)
+								end(rental)
+							}
+						})
+					},
 					position: 'row',
 				}]}
 			/>

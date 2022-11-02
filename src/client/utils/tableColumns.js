@@ -75,6 +75,7 @@ const rentalState = {
 		[RentalStates.CLAIMED]: 'Alquiler expirado, llaves pendientes de devolución',
 		[RentalStates.RENEWAL_REQUESTED]: 'Renovación solicitada',
 		[RentalStates.RETURNED]: 'Alquiler finalizado',
+		[RentalStates.DECLINED]: 'Alquiler cancelado'
 
 	},
 };

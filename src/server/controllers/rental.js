@@ -199,6 +199,10 @@ exports.denyRenewal = (req, res, next) => {
 };
 
 exports.endRental = (req, res, next) => {
+	if (req.entity.rentalStateId == RentalStates.REQUESTED){
+		return req.entity.destroy()
+}
+
 	if (req.entity.rentalStateId !== RentalStates.CLAIMED) {
 		return next(new BadRequestError('No se puede terminar un alquiler del cuál no se haya informado su finalización previamente'));
 	}

@@ -19,6 +19,7 @@ import Users from './Users';
 import EndSession from '../components/EndSession';
 import Layout from '../components/Layout/Layout';
 import LogOut from './LogOut';
+import MyLockers from './MyLockers';
 
 const AppRouter = () => {
 	const session = useSelector((state) => state.session);
@@ -37,7 +38,7 @@ const AppRouter = () => {
 			<Switch>
 				<Route exact path="/" component={Catalog} />
 				<Route exact path="/logout" component={LogOut} />
-				<Route exact path="/myLockers" component={TestView} />
+				<Route exact path="/myLockers" component={MyLockers} />
 				<Route exact path="/request" component={TestView} />
 				<Route exact path="/me" component={() => <Profile user={session.user} />} />
 				{session.user && session.user.isAdmin ? adminRoutes : null}

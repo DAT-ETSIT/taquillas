@@ -37,6 +37,13 @@ module.exports = {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		},
+		{
+			id: RentalStates.DECLINED,
+			name: 'Declined',
+			description: 'The rental of the locker is declined, go to DAT to know more information about it.',
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		},
 	]),
 
 	down: (queryInterface) => queryInterface.bulkDelete('RentalStates', null, {}),
