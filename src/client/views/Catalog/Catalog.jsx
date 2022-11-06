@@ -50,9 +50,20 @@ const Catalog = () => {
 			</Card>
 		),
 	);
+
+	const emptyCatalog = (
+			<>
+				<h2>Oops, parece que no hay taquillas disponibles ahora mismo.</h2>
+				<h4>Si crees que esto puede ser un error, ponte en <a style={{color:"#F65555"}}href="mailto:dat@sscc.etsit.upm.es">contacto</a> con nosotros.</h4>
+			</>
+			
+		);
+
+	const isCatalogEmpty = catalogCards.length === 0;
+
 	return (
 		<div className="catalog">
-			{catalogCards}
+			{isCatalogEmpty ? emptyCatalog : catalogCards}
 		</div>
 	);
 };
