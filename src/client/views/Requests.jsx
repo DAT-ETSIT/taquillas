@@ -13,6 +13,7 @@ import {
 } from '../utils/api/lockers';
 import Table from '../components/Table';
 import store from '../redux/store';
+import locker from '../../server/models/locker';
 
 const { dispatch } = store;
 
@@ -55,7 +56,7 @@ const Requests = () => {
 		.then((res) => setData(
 			data.map((rental) => (rental.id === res.id ? res : rental)),
 		)).catch((error) => dispatch(addRequestError(error)));
-	
+
 	const declineRental = (oldRental) => endRental(oldRental)
 		.then((res) => setData(
 			data.map((rental) => (rental.id === res.id ? res : rental)),
@@ -65,7 +66,7 @@ const Requests = () => {
 		.then((res) => setData(
 			data.map((locker) => (locker.id === res.id ? res : locker)),
 		)).catch((error) => dispatch(addRequestError(error)));
-	
+
 	const updateRentals = (oldRental, newRental) => updateRental(oldRental, newRental)
 		.then((res) => setData(
 			data.map((rental) => (rental.id === res.id ? res : rental)),
@@ -86,29 +87,31 @@ const Requests = () => {
 					{
 						icon: 'euro',
 						tooltip: 'Pagar y comenzar préstamo',
-						onClick: (event, rental) => {if (confirm("Confirmas el pago de la taquilla " + rental.Locker.lockerNumber + ".") == true) {
-							rental.rentalStateId = RentalStates.RENTED
-							rental.deposit = 5
-							console.log(rental)
-							updateRentals(rental,rental)
-						}
+						onClick: (event, rental) => {
+							if (confirm("Confirmas el pago de la taquilla " + rental.Locker.lockerNumber + ".") == true) {
+								let locker = lockers.find(l => l.lockerNumber === rental.Locker.lockerNumber)
+								locker.lockerStateId = LockerStates.RENTED
+								updateLocker(locker, locker)
+
+								rental.rentalStateId = RentalStates.RENTED
+								rental.deposit = 5
+								updateRentals(rental, rental)
+							}
 						},
 						position: 'row',
 					},
 					{
 						icon: 'clear',
 						tooltip: 'Rechazar y terminar préstamo',
-						onClick: (event, rental) => {if (confirm("Seguro que quiere eliminar esta petición?") == true) {
-							{/*end(rental)*/}
-							{lockers.map((locker) => {
-									if (locker.id == rental.lockerId) {
-										locker.lockerStateId = LockerStates.AVAILABLE
-										updateLockers(locker,locker)
-										end(rental)
-									} 
-								})
+						onClick: (event, rental) => {
+							if (confirm("Seguro que quiere eliminar esta petición?") == true) {
+								{
+									let locker = lockers.find(l => l.lockerNumber === rental.Locker.lockerNumber)
+									locker.lockerStateId = LockerStates.AVAILABLE
+									updateLocker(locker, locker)
+									end(rental)
+								}
 							}
-						}
 						},
 						position: 'row',
 					},

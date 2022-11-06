@@ -29,7 +29,6 @@ const Users = () => {
 		.then((res) => setData(
 			data.map((user) => (user.id === res.id ? res : user)),
 		)).catch((error) => dispatch(addRequestError(error)));
-	console.log(data);
 	return (
 		<div>
 			<Table

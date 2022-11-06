@@ -103,8 +103,6 @@ const Rentals = () => {
 						lockers.map((locker) => {
 							if (locker.id == rental.lockerId) {
 								locker.lockerStateId = LockerStates.AVAILABLE
-								console.log(locker)
-								console.log(rental)
 								updateLockers(locker,locker)
 								end(rental)
 							}

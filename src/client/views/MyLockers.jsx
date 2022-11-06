@@ -36,7 +36,7 @@ const MyLockers = () => {
 	const rentalsColumns = getRentalsColumns(lockers, users);
 
 	return (
-        <div> {console.log(data)}{console.log("prueba")}
+        <div>
 		<Table
 			data={data.filter(
                 (rental) => rental.userId === session.user.id,
