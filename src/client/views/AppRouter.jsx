@@ -34,7 +34,7 @@ const AppRouter = () => {
 		</Fragment>
 	);
 	const userLogedSwitch = (
-		<Layout>
+		<Layout session={session}>
 			<Switch>
 				<Route exact path="/" component={Catalog} />
 				<Route exact path="/logout" component={LogOut} />

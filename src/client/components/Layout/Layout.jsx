@@ -14,15 +14,18 @@ function Layout(props) {
 		getSession();
 	}, [location.pathname]);
 
+//			{location.pathname.includes('admin') ? (<AdminNav />) : null}
+
 	return (
 		<main id="main">
 			<Message />
 			<Header />
-			{location.pathname.includes('admin') ? (<AdminNav />) : null}
+
+			{props.session.user.isAdmin ? (<AdminNav />) : null}
 			<div className="main_section" style={{ flexGrow: '1' }}>{children}</div>
 			<div className="footer">
 				<span>
-					&copy; 2019-2020 &mdash; Delegación de Alumnos de Telecomunicación
+					&copy; 2022-2023 &mdash; Delegación de Alumnos de Telecomunicación
 				</span>
 			</div>
 		</main>
