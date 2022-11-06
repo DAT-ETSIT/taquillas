@@ -14,14 +14,13 @@ function Layout(props) {
 		getSession();
 	}, [location.pathname]);
 
-//			{location.pathname.includes('admin') ? (<AdminNav />) : null}
 
 	return (
 		<main id="main">
 			<Message />
 			<Header />
 
-			{props.session.user.isAdmin ? (<AdminNav />) : null}
+			{location.pathname.includes('admin') ? (<AdminNav />) : null}
 			<div className="main_section" style={{ flexGrow: '1' }}>{children}</div>
 			<div className="footer">
 				<span>
