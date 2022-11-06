@@ -105,6 +105,9 @@ exports.index = (req, res, next) => {
 			},
 		],
 	};
+
+	if (!req.session.user.isAdmin) req.options = {...req.options, where: {userId: req.session.user.id}}
+
 	req.model = models.Rental;
 	next();
 };

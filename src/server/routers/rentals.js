@@ -35,11 +35,14 @@ router.post(
 	defaultController.sendResult,
 );
 
+router.route('/')
+	.get(rental.index, defaultController.index)
+
 // Admin Routes
 router.use(session.adminRequired);
 // Routes for the model rental
 router.route('/')
-	.get(rental.index, defaultController.index)
+//	.get(rental.index, defaultController.index)
 	.post(rental.create, defaultController.create);
 
 router.route('/:rentalId(\\d+)')

@@ -6,18 +6,34 @@ const { NotFoundError } = require('../errors');
 exports.model = models.Locker;
 
 exports.index = (req, res, next) => {
-	req.options = {
-		include: [
-			models.Location,
-			models.LockerState,
-			{
-				model: models.Rental,
-				where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED } },
-				required: false,
-				include: [models.User],
-			},
-		],
-	};
+	if (req.session.user.isAdmin) {
+		req.options = {
+			include: [
+				models.Location,
+				models.LockerState,
+				{
+					model: models.Rental,
+					where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED } },
+					required: false,
+					include: [models.User],
+				},
+			],
+		};
+	} else {
+		req.options = {
+			include: [
+				models.Location,
+				models.LockerState,
+				{
+					model: models.Rental,
+					where: { rentalStateId: { [Op.ne]: RentalStates.RETURNED }, userId: req.session.user.id },
+					required: false,
+					include: [models.User],
+				},
+			],
+		};
+	}
+
 	req.model = models.Locker;
 	next();
 };

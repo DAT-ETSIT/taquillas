@@ -8,10 +8,13 @@ router.use(session.loginRequired);
 // Lockers
 router.param('lockerId', locker.load);
 
+router.route('/')
+	.get(locker.index, defaultController.index)
+
 // Admin Routes
 router.use(session.adminRequired);
 router.route('/')
-	.get(locker.index, defaultController.index)
+//	.get(locker.index, defaultController.index)
 	.post(locker.create, defaultController.create);
 
 router.route('/:lockerId(\\d+)')

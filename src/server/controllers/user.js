@@ -96,8 +96,11 @@ exports.index = (req, res, next) => {
 				required: false,
 				include: [models.Locker],
 			},
-		],
+		]
 	};
+
+	if (!req.session.user.isAdmin) req.options = { ...req.options, where: {id: req.session.user.id}};
+
 	req.model = models.User;
 	next();
 };

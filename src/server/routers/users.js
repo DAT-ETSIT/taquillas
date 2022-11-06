@@ -20,11 +20,14 @@ router.post(
 	defaultController.sendResult,
 );
 
+router.route('/')
+	.get(user.index, defaultController.index)
+
 // Admin Routes
 router.use(session.adminRequired);
 
 router.route('/')
-	.get(user.index, defaultController.index)
+//	.get(user.index, defaultController.index)
 	.post(user.create, defaultController.create);
 
 router.route('/:userId(\\d+)')
