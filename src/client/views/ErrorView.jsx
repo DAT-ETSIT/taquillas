@@ -20,7 +20,7 @@ export default function ErrorView(props) {
 		content = (
 			<div>
 				<h3>
-					Ouch. Top Profe no se encuentra muy bien...
+					Ouch. Taquillas DAT no se encuentra muy bien...
 				</h3>
 				<p>
 					Ha habido un problema inesperado al atender tu petición.
