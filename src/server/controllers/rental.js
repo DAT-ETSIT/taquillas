@@ -1,6 +1,10 @@
+const env = process.env.NODE_ENV || 'development';
+
 const models = require('../models');
 const { LockerStates, RentalStates, MAX_RENTALS } = require('../constants');
 const { NotFoundError, BadRequestError, LimitedUserError } = require('../errors');
+
+const params = require('../config/params.json')[env];
 
 exports.model = models.Rental;
 
@@ -43,7 +47,7 @@ exports.requestLocker = (req, res, next) => {
 	return req.locker.update({ lockerStateId: LockerStates.RESERVED })
 		.then((locker) => models.Rental.create(
 			{
-				expirationDate: Date.now(), // Deprecated?
+				expirationDate: new Date(Date.parse((req.body.period === "semester") ? params.expirationDateSemester : params.expirationDateYear)).toISOString().slice(0,19).replace('T',' '),
 				deposit: 0,
 				userId: req.session.user.id,
 				lockerId: locker.id,
@@ -71,7 +75,7 @@ exports.requestRandomLocker = (req, res, next) => {
 		.then((locker) => locker.update({ lockerStateId: LockerStates.RESERVED }))
 		.then((locker) => models.Rental.create(
 			{
-				expirationDate: Date.now(), // Deprecated?
+				expirationDate: new Date(Date.parse((req.body.period === "semester") ? params.expirationDateSemester : params.expirationDateYear)).toISOString().slice(0,19).replace('T',' '),
 				deposit: 0,
 				userId: req.session.user.id,
 				lockerId: locker.id,
@@ -113,6 +117,8 @@ exports.index = (req, res, next) => {
 };
 
 exports.update = (req, res, next) => {
+	console.log("Depósito: " + req.body.deposit);
+	req.body.deposit = parseInt(req.body.deposit) === 0 ? params.deposit : req.body.deposit
 	req.allowedFields = ['expirationDate', 'deposit', 'userId', 'lockerId', 'rentalStateId'];
 	next();
 };
@@ -120,7 +126,8 @@ exports.update = (req, res, next) => {
 exports.create = (req, res, next) => {
 	req.entity = models.Rental.build(
 		{
-			expirationDate: req.body.expirationDate || Date.now(),
+			//expirationDate: req.body.expirationDate || Date.now(),
+			expirationDate: new Date(Date.parse((req.body.period === "semester") ? params.expirationDateSemester : params.expirationDateYear)).toISOString().slice(0,19).replace('T',' '),
 			deposit: req.body.deposit,
 			userId: req.body.userId,
 			lockerId: req.body.lockerId,

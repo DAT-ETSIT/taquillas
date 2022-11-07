@@ -35,13 +35,14 @@ const RequestLocker = (props) => {
 		closeForm,
 	} = props;
 	const [lockerId, setLockerId] = useState(-1);
+	const [period, setPeriod] = useState("semester");
 	const classes = useStyles();
 	const history = useHistory();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		closeForm();
-		requestLocker(location.id, lockerId)
+		requestLocker(location.id, lockerId, period)
 			.then(() => getSession())
 			.then(() => history.push('/myLockers'))
 			.catch((error) => dispatch(addRequestError(error)));
@@ -68,6 +69,18 @@ const RequestLocker = (props) => {
 									</option>
 								),
 							)}
+						</Select>
+					</FormControl>
+					<FormControl className={classes.formControl}>
+						<InputLabel htmlFor="period-selector">Periodo</InputLabel>
+						<Select
+							native
+							value={period}
+							onChange={(event) => setPeriod(event.target.value)}
+							input={<Input id="period-selector" />}
+						>
+							<option key="semester" value="semester">Cuatrimestre</option>
+							<option key="year" value="year">Curso</option>
 						</Select>
 					</FormControl>
 				</form>

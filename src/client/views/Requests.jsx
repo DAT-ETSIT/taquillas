@@ -94,7 +94,6 @@ const Requests = () => {
 								updateLocker(locker, locker)
 
 								rental.rentalStateId = RentalStates.RENTED
-								rental.deposit = 5
 								updateRentals(rental, rental)
 							}
 						},

@@ -3,11 +3,11 @@ import {
 	fetchPut, fetchDelete,
 } from '../asyncRequests';
 
-const requestLocker = (locationId, lockerId) => {
+const requestLocker = (locationId, lockerId, period) => {
 	const requestLockerUrl = `/api/v1/rentals/request/locker/${lockerId}`;
 	const requestAnyUrl = `/api/v1/rentals/request/any/${locationId}`;
 	const url = lockerId >= 0 ? requestLockerUrl : requestAnyUrl;
-	return fetchPost(url)
+	return fetchPost(url, {period})
 		.then((r) => r.json());
 };
 

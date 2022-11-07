@@ -91,3 +91,4 @@ Session.vim
 # Server secrets & config file
 src/server/config/database.json
 src/server/config/server.json
+src/server/config/params.json
