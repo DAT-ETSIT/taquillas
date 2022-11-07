@@ -119,6 +119,11 @@ const deposit = {
 	field: 'deposit',
 	title: 'Fianza',
 	type: 'currency',
+	currencySetting: {
+		currencyCode: 'EUR',
+		locale: 'es',
+		minimumFractionDigits: 0
+	}
 };
 
 const lockerLocation = {
