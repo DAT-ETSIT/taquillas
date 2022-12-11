@@ -45,7 +45,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "connect-session-sequelize": "^6.1.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-session": "^1.17.1",
     "got": "^11.1.4",
     "material-table": "1.69.1",
