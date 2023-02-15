@@ -32,6 +32,7 @@ $ yarn install
 ```sh
 $ cp src/server/config/serverExample.json src/server/config/server.json
 $ cp src/server/config/databaseExample.json src/server/config/database.json
+$ cp src/server/config/paramsExample.json src/server/config/params.json
 ```
   Set `usingProxy` to `true` if you are serving Taquillas behind a
   reverse proxy. In affirmative case, it is required to set the
