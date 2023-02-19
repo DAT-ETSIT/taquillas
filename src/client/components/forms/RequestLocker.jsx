@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import {
+	Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Input, InputLabel, Select,
+} from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';

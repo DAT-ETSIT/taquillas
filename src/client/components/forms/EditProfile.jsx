@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
+import {
+	Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, TextField,
+} from '@mui/material';
 import { updateProfile } from '../../utils/api/users';
 import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';
