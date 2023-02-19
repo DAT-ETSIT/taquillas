@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 
-const Table = (props) => {
+function Table(props) {
 	const {
 		data, title, columns, actions,
 		create, update, remove, editable,
@@ -47,6 +47,6 @@ const Table = (props) => {
 			]}
 		/>
 	);
-};
+}
 
 export default Table;

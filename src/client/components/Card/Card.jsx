@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-const Card = (props) => {
+function Card(props) {
 	const {
 		name, description,
 		stats, children,
@@ -26,6 +26,6 @@ const Card = (props) => {
 			<br />
 		</div>
 	);
-};
+}
 
 export default Card;

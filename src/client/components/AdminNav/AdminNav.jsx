@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import NavLink from '../NavLink/NavLink';
 import './styles.css';
 
-const AdminNav = () => {
+function AdminNav() {
 	const location = useLocation();
 	return (
 		<nav>
@@ -39,6 +39,6 @@ const AdminNav = () => {
 			/>
 		</nav>
 	);
-};
+}
 
 export default AdminNav;

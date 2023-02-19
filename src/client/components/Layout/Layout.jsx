@@ -14,7 +14,6 @@ function Layout(props) {
 		getSession();
 	}, [location.pathname]);
 
-
 	return (
 		<main id="main">
 			<Message />

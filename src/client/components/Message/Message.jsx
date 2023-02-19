@@ -4,7 +4,7 @@ import store from '../../redux/store';
 import { removeMessage } from '../../redux/actions/messages';
 import './styles.css';
 
-const Message = () => {
+function Message() {
 	const messages = useSelector((state) => state.messages);
 	const [data, setData] = useState({
 		isActive: false,
@@ -52,6 +52,6 @@ const Message = () => {
 
 	if (data.isActive) return modal;
 	return null;
-};
+}
 
 export default Message;

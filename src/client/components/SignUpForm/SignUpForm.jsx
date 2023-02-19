@@ -5,7 +5,7 @@ import { logOut } from '../../utils/api/session';
 import { signUp } from '../../utils/api/users';
 import './styles.css';
 
-const SignUpForm = () => {
+function SignUpForm() {
 	const session = useSelector((state) => state.session);
 	const [data, setData] = useState({
 		name: '',
@@ -61,6 +61,6 @@ const SignUpForm = () => {
 
 		</form>
 	);
-};
+}
 
 export default SignUpForm;

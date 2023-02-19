@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles.css';
 
-const NavLink = (props) => {
+function NavLink(props) {
 	const {
 		text,
 		children,
@@ -16,6 +16,6 @@ const NavLink = (props) => {
 			</div>
 		</Link>
 	);
-};
+}
 
 export default NavLink;

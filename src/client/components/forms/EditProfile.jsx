@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EditProfile = (props) => {
+function EditProfile(props) {
 	const {
 		isOpen,
 		user,
@@ -105,6 +105,6 @@ const EditProfile = (props) => {
 			</DialogActions>
 		</Dialog>
 	);
-};
+}
 
 export default EditProfile;
