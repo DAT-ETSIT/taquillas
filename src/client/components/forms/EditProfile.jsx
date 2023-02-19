@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@mui/styles';
+import {
+	Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, TextField,
+} from '@mui/material';
 import { updateProfile } from '../../utils/api/users';
 import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';
@@ -24,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EditProfile = (props) => {
+function EditProfile(props) {
 	const {
 		isOpen,
 		user,
@@ -105,6 +101,6 @@ const EditProfile = (props) => {
 			</DialogActions>
 		</Dialog>
 	);
-};
+}
 
 export default EditProfile;

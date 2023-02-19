@@ -6,7 +6,7 @@ import NavLink from '../NavLink/NavLink';
 import Logo from '../../public/images/logo.svg';
 import './styles.css';
 
-const Header = () => {
+function Header() {
 	const location = useLocation();
 	const session = useSelector((state) => state.session);
 	return (
@@ -48,6 +48,6 @@ const Header = () => {
 			</div>
 		</header>
 	);
-};
+}
 
 export default Header;

@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@mui/styles';
+import {
+	Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Input, InputLabel, Select,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';
 import store from '../../redux/store';
 import requestLocker from '../../utils/api/rentals';
-// import './styles.css';
 
 const { dispatch } = store;
 const useStyles = makeStyles((theme) => ({
@@ -28,16 +21,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const RequestLocker = (props) => {
+function RequestLocker(props) {
 	const {
 		isOpen,
 		location,
 		closeForm,
 	} = props;
 	const [lockerId, setLockerId] = useState(-1);
-	const [period, setPeriod] = useState("semester");
+	const [period, setPeriod] = useState('semester');
 	const classes = useStyles();
-	const history = useHistory();
+	const history = useNavigate();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -95,6 +88,6 @@ const RequestLocker = (props) => {
 			</DialogActions>
 		</Dialog>
 	);
-};
+}
 
 export default RequestLocker;

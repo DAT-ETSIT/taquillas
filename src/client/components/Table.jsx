@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import MaterialTable from 'material-table';
 
-const Table = (props) => {
+function Table(props) {
 	const {
 		data, title, columns, actions,
 		create, update, remove, editable,
@@ -26,27 +25,8 @@ const Table = (props) => {
 		);
 	}
 	return (
-		<MaterialTable
-			title={title}
-			columns={columns}
-			data={data}
-			editable={triggers}
-			options={{
-				filtering: filterActivated,
-				selection: true,
-			}}
-			detailPanel={detailPanel}
-			actions={[
-				...actions,
-				{
-					icon: 'filter_list',
-					tooltip: 'Filtrar datos',
-					onClick: () => setFilterActivated(!filterActivated),
-					position: 'toolbar',
-				},
-			]}
-		/>
+		<div>Hola Mundo!</div>
 	);
-};
+}
 
 export default Table;

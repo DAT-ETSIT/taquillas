@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import { getSession } from '../utils/api/session';
 import AppRouter from './AppRouter';
 

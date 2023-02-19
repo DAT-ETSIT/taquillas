@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logOut } from '../../utils/api/session';
 import { signUp } from '../../utils/api/users';
 import './styles.css';
 
-const SignUpForm = () => {
+function SignUpForm() {
 	const session = useSelector((state) => state.session);
 	const [data, setData] = useState({
 		name: '',
@@ -13,7 +13,7 @@ const SignUpForm = () => {
 		dni: '',
 		email: '',
 	});
-	const history = useHistory();
+	const history = useNavigate();
 
 	useEffect(() => {
 		setData({
@@ -61,6 +61,6 @@ const SignUpForm = () => {
 
 		</form>
 	);
-};
+}
 
 export default SignUpForm;

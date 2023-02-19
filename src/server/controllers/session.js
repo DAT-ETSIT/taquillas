@@ -1,6 +1,6 @@
 const env = process.env.NODE_ENV || 'development';
 const { Op } = require('sequelize');
-const got = require('got');
+const got = import('got');
 const xml2js = require('xml2js');
 const xmlProcessors = require('xml2js/lib/processors');
 const { UnauthorizedError, LimitedUserError } = require('../errors');

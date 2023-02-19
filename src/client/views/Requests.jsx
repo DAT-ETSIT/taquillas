@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { getRentalsColumns } from '../utils/tableColumns';
 import { addRequestError } from '../redux/actions/messages';
-import { getAllLockers } from '../utils/api/lockers';
+import {
+	getAllLockers,
+	updateLocker, removeLocker,
+} from '../utils/api/lockers';
 import { getAllUsers } from '../utils/api/users';
 import { LockerStates, RentalStates } from '../../server/constants';
 import {
 	getAllRentals, endRental,
 	acceptRenewal, denyRenewal, updateRental,
 } from '../utils/api/rentals';
-import {
-	updateLocker, removeLocker,
-} from '../utils/api/lockers';
+
 import Table from '../components/Table';
 import store from '../redux/store';
 import locker from '../../server/models/locker';
 
 const { dispatch } = store;
 
-const Requests = () => {
+function Requests() {
 	const [data, setData] = useState([]);
 	const [lockers, setLockers] = useState([]);
 	const [users, setUsers] = useState([]);
@@ -72,7 +73,6 @@ const Requests = () => {
 			data.map((rental) => (rental.id === res.id ? res : rental)),
 		)).catch((error) => dispatch(addRequestError(error)));
 
-
 	return (
 		<div>
 			<Table
@@ -88,13 +88,13 @@ const Requests = () => {
 						icon: 'euro',
 						tooltip: 'Pagar y comenzar préstamo',
 						onClick: (event, rental) => {
-							if (confirm("Confirmas el pago de la taquilla " + rental.Locker.lockerNumber + ".") == true) {
-								let locker = lockers.find(l => l.lockerNumber === rental.Locker.lockerNumber)
-								locker.lockerStateId = LockerStates.RENTED
-								updateLocker(locker, locker)
+							if (confirm(`Confirmas el pago de la taquilla ${rental.Locker.lockerNumber}.`) == true) {
+								const locker = lockers.find((l) => l.lockerNumber === rental.Locker.lockerNumber);
+								locker.lockerStateId = LockerStates.RENTED;
+								updateLocker(locker, locker);
 
-								rental.rentalStateId = RentalStates.RENTED
-								updateRentals(rental, rental)
+								rental.rentalStateId = RentalStates.RENTED;
+								updateRentals(rental, rental);
 							}
 						},
 						position: 'row',
@@ -103,12 +103,12 @@ const Requests = () => {
 						icon: 'clear',
 						tooltip: 'Rechazar y terminar préstamo',
 						onClick: (event, rental) => {
-							if (confirm("Seguro que quiere eliminar esta petición?") == true) {
+							if (confirm('Seguro que quiere eliminar esta petición?') == true) {
 								{
-									let locker = lockers.find(l => l.lockerNumber === rental.Locker.lockerNumber)
-									locker.lockerStateId = LockerStates.AVAILABLE
-									updateLocker(locker, locker)
-									end(rental)
+									const locker = lockers.find((l) => l.lockerNumber === rental.Locker.lockerNumber);
+									locker.lockerStateId = LockerStates.AVAILABLE;
+									updateLocker(locker, locker);
+									end(rental);
 								}
 							}
 						},
@@ -143,6 +143,6 @@ const Requests = () => {
 		</div>
 
 	);
-};
+}
 
 export default Requests;
