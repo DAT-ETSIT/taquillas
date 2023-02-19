@@ -10,7 +10,7 @@
     "seed": "sequelize db:seed:all",
     "server": "nodemon --ignore dist/ --ignore src/client",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "dev": "concurrently --kill-others --raw --default-input-target 1 'yarn run client' 'yarn run server'",
+    "dev": "NODE_ENV=development concurrently --kill-others --raw --default-input-target 1 'yarn run client' 'yarn run server'",
     "lint-css": "stylelint \"**/*.css\"",
     "lint-js": "eslint . --ext .js,.jsx --ignore-pattern dist/ --ignore-pattern node_modules/",
     "test": "yarn run lint-js && yarn run lint-css"
@@ -52,6 +52,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "got": "^12.5.3",
+    "material-react-table": "^1.8.0",
     "morgan": "^1.9.1",
     "mysql2": "^3.1.2",
     "promise-mysql": "^5.2.0",
