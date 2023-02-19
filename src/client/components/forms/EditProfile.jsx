@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import {
 	Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, TextField,
 } from '@mui/material';

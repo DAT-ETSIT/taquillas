@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import {
 	BrowserRouter, Route,
-	Switch,
+	Routes,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import TestView from './TestView';
@@ -21,41 +21,41 @@ import Layout from '../components/Layout/Layout';
 import LogOut from './LogOut';
 import MyLockers from './MyLockers';
 
-const AppRouter = () => {
+function AppRouter() {
 	const session = useSelector((state) => state.session);
 	const adminRoutes = (
 		<Fragment key="adminRoutes">
-			<Route exact path="/admin/locations" component={Locations} />
-			<Route exact path="/admin/lockers" component={Lockers} />
-			<Route exact path="/admin/payments" component={Payments} />
-			<Route exact path="/admin/users" component={Users} />
-			<Route exact path="/admin/rentals" component={Rentals} />
-			<Route exact path="/admin/requests" component={Requests} />
+			<Route exact path="/admin/locations" element={<Locations />} />
+			<Route exact path="/admin/lockers" element={<Lockers />} />
+			<Route exact path="/admin/payments" element={<Payments />} />
+			<Route exact path="/admin/users" element={<Users />} />
+			<Route exact path="/admin/rentals" element={<Rentals />} />
+			<Route exact path="/admin/requests" element={<Requests />} />
 		</Fragment>
 	);
 	const userLogedSwitch = (
 		<Layout session={session}>
-			<Switch>
-				<Route exact path="/" component={Catalog} />
-				<Route exact path="/logout" component={LogOut} />
-				<Route exact path="/myLockers" component={MyLockers} />
-				<Route exact path="/request" component={TestView} />
-				<Route exact path="/me" component={() => <Profile user={session.user} />} />
+			<Routes>
+				<Route exact path="/" element={<Catalog />} />
+				<Route exact path="/logout" element={<LogOut />} />
+				<Route exact path="/myLockers" element={<MyLockers />} />
+				<Route exact path="/request" element={<TestView />} />
+				<Route exact path="/me" element={() => <Profile user={session.user} />} />
 				{session.user && session.user.isAdmin ? adminRoutes : null}
 				<Route path="/500" render={(props) => <ErrorView {...props} code={500} />} />
 				<Route render={(props) => <ErrorView {...props} code={404} />} />
-			</Switch>
+			</Routes>
 		</Layout>
 	);
 
 	const defaultSwitch = (
-		<Switch>
-			<Route exact path="/" component={Welcome} />
-			<Route exact path="/login" component={Welcome} />
-			<Route exact path="/signup" component={SignUp} />
+		<Routes>
+			<Route exact path="/" element={<Welcome />} />
+			<Route exact path="/login" element={<Welcome />} />
+			<Route exact path="/signup" element={<SignUp />} />
 			<Route path="/500" render={(props) => <ErrorView {...props} code={500} />} />
 			<Route render={() => <EndSession />} />
-		</Switch>
+		</Routes>
 	);
 	const routerSwitch = session.user ? userLogedSwitch : defaultSwitch;
 	return (
@@ -63,6 +63,6 @@ const AppRouter = () => {
 			{ routerSwitch }
 		</BrowserRouter>
 	);
-};
+}
 
 export default AppRouter;

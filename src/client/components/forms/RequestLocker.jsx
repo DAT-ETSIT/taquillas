@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import {
 	Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Input, InputLabel, Select,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getSession } from '../../utils/api/session';
 import { addRequestError } from '../../redux/actions/messages';
 import store from '../../redux/store';
@@ -30,7 +30,7 @@ function RequestLocker(props) {
 	const [lockerId, setLockerId] = useState(-1);
 	const [period, setPeriod] = useState('semester');
 	const classes = useStyles();
-	const history = useHistory();
+	const history = useNavigate();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();

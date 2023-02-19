@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logOut } from '../../utils/api/session';
 import { signUp } from '../../utils/api/users';
@@ -13,7 +13,7 @@ function SignUpForm() {
 		dni: '',
 		email: '',
 	});
-	const history = useHistory();
+	const history = useNavigate();
 
 	useEffect(() => {
 		setData({
